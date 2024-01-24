@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description');
             $table->float('price');
             $table->integer('stock')->unsigned();
-            $table->string('pic');
+            $table->string('image');
             $table->boolean('active');
             $table->timestamps();
 
@@ -29,23 +29,23 @@ return new class extends Migration
             $table->foreignUuid('color_id');
             $table->foreignUuid('size_id');
 
-            $table->foreign('business_id')
-                ->references('id')->on('business')->cascadeOnDelete();
-
-            $table->foreign('category_id')
-                ->references('id')->on('categories')->cascadeOnDelete();
-
-            $table->foreign('material_id')
-                ->references('id')->on('materials')->cascadeOnDelete();
-
-            $table->foreign('style_id')
-                ->references('id')->on('styles')->cascadeOnDelete();
-
-            $table->foreign('color_id')
-                ->references('id')->on('colors')->cascadeOnDelete();
-
-            $table->foreign('size_id')
-                ->references('id')->on('sizes')->cascadeOnDelete();
+//            $table->foreign('business_id')
+//                ->references('id')->on('business')->cascadeOnDelete();
+//
+//            $table->foreign('category_id')
+//                ->references('id')->on('categories')->cascadeOnDelete();
+//
+//            $table->foreign('material_id')
+//                ->references('id')->on('materials')->cascadeOnDelete();
+//
+//            $table->foreign('style_id')
+//                ->references('id')->on('styles')->cascadeOnDelete();
+//
+//            $table->foreign('color_id')
+//                ->references('id')->on('colors')->cascadeOnDelete();
+//
+//            $table->foreign('size_id')
+//                ->references('id')->on('sizes')->cascadeOnDelete();
         });
     }
 

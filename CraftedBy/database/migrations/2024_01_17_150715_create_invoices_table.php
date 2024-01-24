@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
             $table->timestamps();
-
             $table->foreignUuid('customer_id');
-
             $table->foreign('customer_id')
-                ->references('id')->on('users')->cascadeOnDelete();
+                ->references('id')
+                ->on('users');
         });
     }
 

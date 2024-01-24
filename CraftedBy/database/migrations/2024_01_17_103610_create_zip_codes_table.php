@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zip_code', function (Blueprint $table) {
+        Schema::create('zip_codes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->bigInteger('value');
-            $table->timestamps();
+            $table->bigInteger('value')->nullable();
+//            $table->unsignedBigInteger('value')->nullable();
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zip_code');
+        Schema::dropIfExists('zip_codes');
     }
 };

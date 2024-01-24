@@ -13,13 +13,21 @@ return new class extends Migration
     {
         Schema::create('users_business', function (Blueprint $table) {
             $table->foreignUuid('user_id');
-            $table->foreignUuid('business_id');
-
             $table->foreign('user_id')
-                ->references('id')->on('users')->cascadeOnDelete();
+                ->references('id')
+                ->on('users');
 
+            $table->foreignUuid('business_id');
             $table->foreign('business_id')
-                ->references('id')->on('business')->cascadeOnDelete();
+                ->references('id')
+                ->on('business');
+
+
+//            $table->foreign('user_id')
+//                ->references('id')->on('users')->cascadeOnDelete();
+//
+//            $table->foreign('business_id')
+//                ->references('id')->on('business')->cascadeOnDelete();
         });
     }
 

@@ -19,18 +19,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('adress');
+            $table->string('address');
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreignUuid('zip_code_id');
             $table->foreignUuid('city_id');
 
-            $table->foreign('zip_code_id')
-                ->references('id')->on('zip_code')->cascadeOnDelete();
-
-            $table->foreign('city_id')
-                ->references('id')->on('cities')->cascadeOnDelete();
+//            $table->foreign('zip_code_id')
+//                ->references('id')->on('zip_codes')->cascadeOnDelete();
+//
+//            $table->foreign('city_id')
+//                ->references('id')->on('cities')->cascadeOnDelete();
         });
     }
 

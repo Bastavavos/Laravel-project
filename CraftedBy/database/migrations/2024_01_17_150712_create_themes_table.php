@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('layer');
-            $table->float('color_1')->dechex();
-            $table->float('color_2')->dechex();
+            $table->string('color_1');
+            $table->string('color_2');
 
         });
     }

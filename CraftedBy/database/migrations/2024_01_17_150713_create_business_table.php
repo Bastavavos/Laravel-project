@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('history');
-            $table->string('email');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('address');
             $table->string('logo');
             $table->timestamps();
@@ -26,14 +27,14 @@ return new class extends Migration
             $table->foreignUuid('city_id');
             $table->foreignUuid('theme_id');
 
-            $table->foreign('theme_id')
-                ->references('id')->on('themes')->cascadeOnDelete();
-
-            $table->foreign('zip_code_id')
-                ->references('id')->on('zip_code')->cascadeOnDelete();
-
-            $table->foreign('city_id')
-                ->references('id')->on('cities')->cascadeOnDelete();
+//            $table->foreign('theme_id')
+//                ->references('id')->on('themes')->cascadeOnDelete();
+//
+//            $table->foreign('zip_codes_id')
+//                ->references('id')->on('zip_codes')->cascadeOnDelete();
+//
+//            $table->foreign('city_id')
+//                ->references('id')->on('cities')->cascadeOnDelete();
         });
     }
 

@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices_products', function (Blueprint $table) {
+        Schema::create('invoice_product', function (Blueprint $table) {
             $table->foreignUuid('invoice_id');
             $table->foreignUuid('product_id');
-            $table->integer('product_quantity');
 
             $table->foreign('invoice_id')
-                ->references('id')->on('invoices')->cascadeOnDelete();
+                ->references('id')
+                ->on('invoices');
 
             $table->foreign('product_id')
-                ->references('id')->on('products')->cascadeOnDelete();
+                ->references('id')
+                ->on('products');
+
+            $table->integer('product_quantity')->unsigned();
         });
     }
 

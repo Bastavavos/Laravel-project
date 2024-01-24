@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices_status', function (Blueprint $table) {
+        Schema::create('invoice_status', function (Blueprint $table) {
             $table->foreignUuid('invoice_id');
             $table->foreignUuid('status_id');
 
             $table->foreign('invoice_id')
-                ->references('id')->on('invoices')->cascadeOnDelete();
+                ->references('id')
+                ->on('invoices');
 
             $table->foreign('status_id')
-                ->references('id')->on('status')->cascadeOnDelete();
+                ->references('id')
+                ->on('status');
 
-            $table->integer('number');
             $table->timestamps();
         });
     }
