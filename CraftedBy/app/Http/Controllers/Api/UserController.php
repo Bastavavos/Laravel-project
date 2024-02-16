@@ -3,47 +3,69 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\City;
 use App\Models\User;
+use App\Models\ZipCode;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-
-//  Display a listing of the resource.
-
     public function index()
     {
-        return UserResource::collection(User::all());
+        $users = UserResource::collection(User::all());
+        return response()->json([
+            'users'=>$users,
+            'status'=>true
+        ]);
     }
 
-//  Store a newly created resource in storage.
-
-    public function store(Request $request): void
+    public function store(StoreUserRequest $request)
     {
-        User::create($request->all());
+        $arrayRequest = $request->all();
+        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
+        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
+
+        $user = new User();
+        $user->firstname = $arrayRequest['firstname'];
+        $user->lastname = $arrayRequest['lastname'];
+        $user->email = $arrayRequest['email'];
+        $user->address = $arrayRequest['address'];
+
+        $user->password = $arrayRequest['password'];
+
+        $user->city()->associate($city);
+        $user->zipCode()->associate($zipCode);
+
+        $user->save();
+
+        return response()->json([
+           'user'=>$user
+        ]);
     }
 
-//   Display the specified resource.
-
-    public function show($id): UserResource
+    public function show($id)
     {
-        return UserResource::make(User::find($id));
+        $user = UserResource::make(User::find($id));
+        return response()->json([
+           'user'=>$user,
+        ]);
     }
 
-//  Update the specified resource in storage.
-
-    public function update(Request $request, User $user): bool
+    public function update(StoreUserRequest $request, $id)
     {
-       return $user->update($request->all());
+      $user = User::find($id);
+      $user->update($request->all());
+      $user->save();
     }
 
-//  Remove the specified resource from storage.
-
-    public function destroy(User $user):void
+    public function destroy($id)
     {
+        $user = User::find($id);
         $user->delete();
     }
 }

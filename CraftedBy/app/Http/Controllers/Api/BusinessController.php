@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBusinessRequest;
 use App\Http\Resources\BusinessResource;
 use App\Models\Business;
 use Illuminate\Http\Request;
@@ -11,26 +12,36 @@ class BusinessController extends Controller
 {
     public function index()
     {
-        return BusinessResource::collection(Business::all());
+        $businesses = BusinessResource::collection(Business::all());
+        return response()->json([
+            'business'=>$businesses,
+            'status'=>true
+        ]);
     }
 
-    public function store(Request $request):void
+    public function store(StoreBusinessRequest $request)
     {
-        Business::create($request->all());
+       return $business = Business::create($request->all());
     }
 
-    public function show(Business $business)
+    public function show($id)
     {
-        return $business;
+        $business = BusinessResource::make(Business::find($id));
+        return response()->json([
+            'business' => $business,
+        ]);
     }
 
-    public function update(Request $request, Business $business):bool
+    public function update(StoreBusinessRequest $request, $id)
     {
-        return $business->update($request->all());
+        $business = Business::find($id);
+        $business->update($request->all());
+        $business->save();
     }
 
-    public function destroy(Business $business): void
+    public function destroy($id)
     {
+        $business = Business::find($id);
         $business->delete();
     }
 }
