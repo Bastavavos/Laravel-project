@@ -14,6 +14,21 @@ class Product extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $fillable = [
+        'name',
+        'image',
+        'price',
+        'stock',
+        'active',
+        'description',
+        'color_id',
+        'material_id',
+        'style_id',
+        'size_id',
+        'category_id',
+        'business_id'
+    ];
+
     public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class);

@@ -58,9 +58,29 @@ class UserController extends Controller
 
     public function update(StoreUserRequest $request, $id)
     {
-      $user = User::find($id);
-      $user->update($request->all());
-      $user->save();
+        $user = User::find($id);
+
+        $arrayRequest = $request->all();
+        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
+        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
+
+        $user->firstname = $arrayRequest['firstname'];
+        $user->lastname = $arrayRequest['lastname'];
+        $user->email = $arrayRequest['email'];
+        $user->address = $arrayRequest['address'];
+
+        if ($arrayRequest['password']) {
+            $user->password = $arrayRequest['password'];
+        }
+
+        $user->city()->associate($city);
+        $user->zipCode()->associate($zipCode);
+
+        $user->save();
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
     public function destroy($id)

@@ -26,13 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('users',[UserController::class,'index']);
 Route::get('users/{id}',[UserController::class,'show']);
 Route::post('users',[UserController::class,'store']);
-Route::delete('users/{id}',[UserController::class,'delete']);
+Route::delete('users/{id}',[UserController::class,'destroy']);
 Route::put('users/{id}',[UserController::class,'update']);
 
 Route::get('products',[ProductController::class,'index']);
 Route::get('products/{id}',[ProductController::class,'show']);
 Route::post('products',[ProductController::class,'store']);
-Route::delete('products/{id}',[ProductController::class,'delete']);
+Route::delete('products/{id}',[ProductController::class,'destroy']);
 Route::put('products/{id}',[ProductController::class,'update']);
 
 Route::get('categories',[CategoryController::class,'index']);
