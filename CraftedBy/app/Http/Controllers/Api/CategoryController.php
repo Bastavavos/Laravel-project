@@ -27,7 +27,15 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-         return $category = Category::create($request->all());
+        $arrayRequest = $request->all();
+        $category = new Category();
+        $category->name = $arrayRequest['name'];
+
+        $category->save();
+
+        return response()->json([
+            'category'=>$category
+        ]);
     }
 
     /**
@@ -48,8 +56,12 @@ class CategoryController extends Controller
     public function update(StoreCategoryRequest $request, $id)
     {
         $category = Category::find($id);
-        $category->update($request->all());
+        $arrayRequest = $request->all();
+        $category->name = $arrayRequest['name'];
         $category->save();
+        return response()->json([
+            'category' => $category
+        ]);
     }
 
     /**

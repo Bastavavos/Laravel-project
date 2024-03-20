@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::factory()
-            ->count(3)
+            ->count(4)
 //            ->for(Business::factory()->create()) // ON NE RECREER PAS UN BUSINESS QUAND ON CREER UN PRODUIT !
             ->for(Color::factory()->create())
             ->for(Material::factory()->create())

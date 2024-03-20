@@ -28,6 +28,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $arrayRequest = $request->all();
+
         $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
         $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
 
@@ -36,7 +37,6 @@ class UserController extends Controller
         $user->lastname = $arrayRequest['lastname'];
         $user->email = $arrayRequest['email'];
         $user->address = $arrayRequest['address'];
-
         $user->password = $arrayRequest['password'];
 
         $user->city()->associate($city);
