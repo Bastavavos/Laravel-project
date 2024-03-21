@@ -18,6 +18,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasUuids;
 
+    public mixed $role;
+
     /**
      * The attributes that are mass assignable.
      *

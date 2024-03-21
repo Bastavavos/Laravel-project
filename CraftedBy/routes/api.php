@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BusinessController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\InvoiceController;
@@ -19,9 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+//Route::apiResource('posts', UserController::class)->middleware('auth:sanctum');
+
+Route::group(['middleware'=>'auth:sanctum'], function () {
+Route::apiResource('user', UserController::class);
+
+});
+
+Route::post('/auth/register', [AuthController::class, 'createUser']);
+Route::post('/auth/login', [AuthController::class, 'loginUser']);
 
 Route::get('users',[UserController::class,'index']);
 Route::get('users/{id}',[UserController::class,'show']);
@@ -47,8 +54,3 @@ Route::post('business',[BusinessController::class,'store']);
 Route::delete('business/{id}',[BusinessController::class,'destroy']);
 Route::put('business/{id}',[BusinessController::class,'update']);
 
-//Route::apiResource('products', ProductController::class);
-//Route::apiResource('business', BusinessController::class);
-//Route::apiResource('invoices', InvoiceController::class);
-//Route::apiResource('categories', CategoryController::class);
-//Route::apiResource('users', UserController::class);
