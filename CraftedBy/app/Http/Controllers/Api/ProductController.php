@@ -29,6 +29,8 @@ class ProductController extends Controller
     {
         $arrayRequest = $request->all();
 
+        $product = new Product();
+
         $color = Color::firstOrCreate(['name' => $arrayRequest['color']]);
         $material = Material::firstOrCreate(['name' => $arrayRequest['material']]);
         $style = Style::firstOrCreate(['name' => $arrayRequest['style']]);
@@ -36,7 +38,6 @@ class ProductController extends Controller
         $business = Business::firstOrCreate(['name' => $arrayRequest['business']]);
         $size = Size::firstOrCreate(['height', 'width', 'depth', 'capacity' => $arrayRequest['size']]);
 
-        $product = new Product();
         $product->name = $arrayRequest['name'];
         $product->image = $arrayRequest['image'];
         $product->price = $arrayRequest['price'];

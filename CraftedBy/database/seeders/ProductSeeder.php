@@ -21,7 +21,6 @@ class ProductSeeder extends Seeder
     {
         Product::factory()
             ->count(4)
-//            ->for(Business::factory()->create()) // ON NE RECREER PAS UN BUSINESS QUAND ON CREER UN PRODUIT !
             ->for(Color::factory()->create())
             ->for(Material::factory()->create())
             ->for(Style::factory()->create())

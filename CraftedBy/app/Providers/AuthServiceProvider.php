@@ -11,6 +11,7 @@ use App\Policies\BusinessPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\UserPolicy;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -32,6 +33,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+//        Gate::define('admin', function (User $user): bool {
+//            return (bool) $user->is_admin;
+//        });
     }
 }

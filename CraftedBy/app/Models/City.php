@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class City extends Model
 {
     use HasFactory, HasUuids;
+
     public $timestamps = false;
 
     /**

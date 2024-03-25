@@ -32,6 +32,7 @@ class User extends Authenticatable
         'email',
         'password',
         'address',
+        'role',
         'zip_code_id',
         'city_id'
     ];
@@ -57,6 +58,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+//    public function role(): BelongsTo
+//    {
+//        return $this->belongsTo(Role::class);
+//    }
 
     public function zipCode(): BelongsTo
     {

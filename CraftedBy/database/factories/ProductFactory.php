@@ -19,13 +19,13 @@ class ProductFactory extends Factory
     {
         $biz = Business::all()->random(1)->value('id');
         return [
-            'name'=>fake()->name,
+            'name'=>fake()->word,
             'business_id'=>$biz,
             'description'=>fake()->text(30),
             'price'=>fake()->randomFloat(2,5,600),
             'stock'=>fake()->numberBetween(0,100),
             'image'=>fake()->imageUrl(50,50),
-            'active'=>fake()->boolean()
+            'active'=>fake()->boolean,
         ];
     }
 }

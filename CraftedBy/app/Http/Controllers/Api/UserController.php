@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\City;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\ZipCode;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -22,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', UserController::class);
+        $this->authorize('viewAny', User::class);
 
         $users = UserResource::collection(User::all());
         return response()->json([
@@ -71,6 +72,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         $arrayRequest = $request->all();
+
         $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
         $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
 
@@ -78,6 +80,7 @@ class UserController extends Controller
         $user->lastname = $arrayRequest['lastname'];
         $user->email = $arrayRequest['email'];
         $user->address = $arrayRequest['address'];
+        $user->role = $arrayRequest['role'];
 
         if ($arrayRequest['password']) {
             $user->password = Hash::make($arrayRequest['password']);
@@ -91,5 +94,11 @@ class UserController extends Controller
         return response()->json([
             'user' => $user
         ]);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
     }
 }

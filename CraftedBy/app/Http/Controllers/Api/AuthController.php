@@ -27,6 +27,7 @@ class AuthController extends Controller
                     'email' => 'required|email|unique:users,email',
                     'password' => 'required',
                     'address' => 'required',
+                    'role' => 'required',
                     'zip_code_id' => 'required|exists:zip_codes,id',
                     'city_id' => 'required|exists:cities,id',
                 ]);
@@ -45,6 +46,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'address' => $request->address,
+                'role' => $request->role,
                 'zip_code_id' => $request->zip_code_id,
                 'city_id' => $request->city_id,
             ]);
