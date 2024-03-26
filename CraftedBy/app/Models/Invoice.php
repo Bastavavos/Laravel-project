@@ -15,7 +15,7 @@ class Invoice extends Model
 {
     use HasFactory, HasUuids;
 
-    public function customer(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'customer_id');
     }
