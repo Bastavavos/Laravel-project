@@ -16,6 +16,9 @@ class Style extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+
+    ];
     public function product(): HasMany
     {
         return $this->hasMany(Product::class);

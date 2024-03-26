@@ -7,7 +7,6 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\City;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\ZipCode;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -18,12 +17,9 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * @throws AuthorizationException
-     */
     public function index()
     {
-        $this->authorize('viewAny', User::class);
+//        $this->authorize('viewAny', User::class);
 
         $users = UserResource::collection(User::all());
         return response()->json([
@@ -33,7 +29,7 @@ class UserController extends Controller
     }
 
 
-// switch with function createUSer in my AuthController or move this function here
+// switch with function createUSer in my AuthController
 
 //    public function store(StoreUserRequest $request)
 //    {
@@ -101,4 +97,8 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
     }
+//Illuminate\Database\QueryException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`CraftedBy_DB`.`invoice_product`, CONSTRAINT `invoice_product_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)) (Connection: mysql, SQL: delete from `users` where `id` = 9ba6362c-f17a-4f93-ac70-0526c31f22d2) in file /home/user/Bureau/Laravel-Project/CraftedBy/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 822
+//Illuminate\Database\QueryException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`CraftedBy_DB`.`invoice_status`, CONSTRAINT `invoice_status_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)) (Connection: mysql, SQL: delete from `users` where `id` = 9ba637a5-3676-46f9-bad6-2e34ef29125b) in file /home/user/Bureau/Laravel-Project/CraftedBy/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 822
+//Illuminate\Database\QueryException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`CraftedBy_DB`.`users_business`, CONSTRAINT `users_business_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)) (Connection: mysql, SQL: delete from `users` where `id` = 9ba63846-c134-48a2-b998-90c3bbf1fac0) in file /home/user/Bureau/Laravel-Project/CraftedBy/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 822
+
 }

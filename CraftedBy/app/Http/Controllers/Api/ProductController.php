@@ -31,30 +31,33 @@ class ProductController extends Controller
 
         $product = new Product();
 
+        $style = Style::find($arrayRequest['style']);
+        $category = Category::find($arrayRequest['category']);
+        $business = Business::find($arrayRequest['business']);
+
         $color = Color::firstOrCreate(['name' => $arrayRequest['color']]);
         $material = Material::firstOrCreate(['name' => $arrayRequest['material']]);
-        $style = Style::firstOrCreate(['name' => $arrayRequest['style']]);
-        $category = Category::firstOrCreate(['name' => $arrayRequest['category']]);
-        $business = Business::firstOrCreate(['name' => $arrayRequest['business']]);
-        $size = Size::firstOrCreate(['height', 'width', 'depth', 'capacity' => $arrayRequest['size']]);
+        $size = Size::create($arrayRequest['size']);
 
+        $product->description = $arrayRequest['description'];
         $product->name = $arrayRequest['name'];
         $product->image = $arrayRequest['image'];
         $product->price = $arrayRequest['price'];
         $product->stock = $arrayRequest['stock'];
         $product->active = $arrayRequest['active'];
 
-        $product->color()->associate($color);
-        $product->material()->associate($material);
         $product->style()->associate($style);
         $product->category()->associate($category);
         $product->business()->associate($business);
+
+        $product->color()->associate($color);
+        $product->material()->associate($material);
         $product->size()->associate($size);
 
         $product->save();
 
         return response()->json([
-           'product'=>$product
+            'product'=>$product
         ]);
     }
 
@@ -62,42 +65,19 @@ class ProductController extends Controller
     {
         $product = ProductResource::make(Product::find($id));
         return response()->json([
-           'product'=>$product,
+            'product'=>$product,
         ]);
     }
 
     public function update(StoreProductRequest $request, $id)
     {
         $product = Product::find($id);
-
-        $arrayRequest = $request->all();
-        $color = Color::firstOrCreate(['name' => $arrayRequest['color']]);
-        $material = Material::firstOrCreate(['name' => $arrayRequest['material']]);
-        $style = Style::firstOrCreate(['name' => $arrayRequest['style']]);
-        $category = Category::firstOrCreate(['name' => $arrayRequest['category']]);
-        $business = Business::firstOrCreate(['name' => $arrayRequest['business']]);
-        $size = Size::firstOrCreate(['height', 'width', 'depth', 'capacity' => $arrayRequest['size']]);
-
-        $product->name = $arrayRequest['name'];
-        $product->image = $arrayRequest['image'];
-        $product->price = $arrayRequest['price'];
-        $product->stock = $arrayRequest['stock'];
-        $product->active = $arrayRequest['active'];
-
-        $product->color()->associate($color);
-        $product->material()->associate($material);
-        $product->style()->associate($style);
-        $product->category()->associate($category);
-        $product->business()->associate($business);
-        $product->size()->associate($size);
-
-        $product->save();
+        $product->update($request->all());
 
         return response()->json([
             'product' => $product
         ]);
     }
-
     public function destroy($id)
     {
         $product = Product::find($id);
