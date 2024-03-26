@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,11 +60,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-//    public function role(): BelongsTo
-//    {
-//        return $this->belongsTo(Role::class);
-//    }
-
     public function zipCode(): BelongsTo
     {
         return $this->belongsTo(ZipCode::class);
@@ -72,5 +68,10 @@ class User extends Authenticatable
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function invoice(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
     }
 }

@@ -51,6 +51,15 @@ Controller simple :
 Controller avec fonctions CRUD associées et spécification du modèle:
 - php artisan make:controller ExampleController --model=Example --resource
 ````
+**Ressources** :
+````
+Permettent d'afficher seulement certains attributs et de transformer de manière expressive 
+nos modèles et collections de modèles en JSON
+
+- php artisan make:ressource ExampleResource (classe de ressources simple)
+
+- php artisan make:resource Example --collection (collection de ressources)
+````
 **Auth & policies** :
 ````
 Laravel Sanctum : 
@@ -64,8 +73,20 @@ et la connexion d'un utilisateur
 
 Protéger l'API avec l'authentification en utilisant le middleware auth:sanctum : 
 "Route::apiResource('posts', PostController::class)->middleware('auth:sanctum');"
+
+
+Générer les Policies : 
+- php artisan make:policy ExamplePolicy 
+- php artisan make:policy ExamplePolicy --model=Example  
+
+Policy Methods > Controller Methods (appelées immédiatement avant que les méthodes du contrôleur s'exécutent) : 
+viewAny > index
+view > show
+create > store (or create)
+update > edit (or update)
+delete > destroy
 ````
-**Ressources** : 
+**Documentation** : 
 ````
 https://laravel.com/docs/10.x/readme 
 https://cours.brosseau.ovh/cheatsheets/laravel/quick.html
