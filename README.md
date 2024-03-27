@@ -1,95 +1,166 @@
-# CraftedBy_API
+<text align="center">
 
-**Objectif et spécificités du projet** :
-````
-Développement d'une API destinée à un site e-commerce ayant pour but de présenter et vendre des produits artisanaux
+# - CraftedBy -
+**backend-API-project**
 
-- Framework PHP Laravel(v.10)
+<br/>
 
-- Espace dédié aux artistes/artisans pour présenter leurs profils et créations
-- Possibilité pour les artisans de gérer leurs propres comptes et de mettre à jour leurs créations
-- Fonctionnalités de recherche avancés, telles que la recherche par matériau, par catégories ou par style
-- Panier d'achat intuitif avec des options de personnalisation pour les produits 
+<p align="center">
+<img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white">
+<img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">
+<img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white">
+</p>
+<br/>
 
-- Respecter les critères de sécurité
-- Impact carbone limité au mieux
-````
-**Initialisation** :
-````
-Installer php composer
+Development of an API for e-commerce website designed to present and sell craft products.
 
-Création du projet : "composer create-project laravel/laravel:^10.0 example-app"
-Lancer le serveur : "php artisan serve"
+</text>
+<br/>
 
-Créer sa base de donnée et configurer la connexion dans le fichier ".env"
-````
-**DebugBar & IDE helper** : 
-````
-Debugbar : "composer require barryvdh/laravel-debugbar --dev"
-IDE helper : "composer require --dev barryvdh/laravel-ide-helper"
-````
-**Générations des Migrations, Models, Factories & Seeders** :
-````
-- php artisan make:migration create_examples_table
+**Specifics :**
+- PHP Framework Laravel(v.10)
+- Space dedicated to artists/craftspeople to present their profiles and creations
+- Artisans can manage their own accounts and update their creations
+- Advanced search functions, such as searching by material, category or style
+- Intuitive shopping cart with customisation options for products
 
-- php artisan make:model Example
-- php artisan make:factory ExampleFactory
-- php artisan make:seeder ExampleSeeder
+- Respect safety criteria
+- Minimise carbon impact
 
-Run migrations : php artisan migrate
-Re-run si modification migration : "php artisan migrate:fresh"
+<br/>
 
-Run seeders : php artisan db:seed
-Possibilité de générer ses seeders dans la même classe (DatabaseSeeder) ou de créer plusieurs classes (ExampleSeeder)
-qui seront appelés dans DatabaseSeeder
-````
-**Controllers & CRUD** :
-````
-Controller simple :
-- php artisan make:controller ExampleController
+**Initialisation :** 
 
-Controller avec fonctions CRUD associées et spécification du modèle:
-- php artisan make:controller ExampleController --model=Example --resource
-````
-**Ressources** :
-````
-Permettent d'afficher seulement certains attributs et de transformer de manière expressive 
-nos modèles et collections de modèles en JSON
+- Installing php composer
 
-- php artisan make:ressource ExampleResource (classe de ressources simple)
+Project creation : 
+````
+composer create-project laravel/laravel:^10.0 example-app
+````
+- Create your database and configure the connection in the ".env" file
 
-- php artisan make:resource Example --collection (collection de ressources)
+Starting the server  : 
 ````
-**Auth & policies** :
+php artisan serve
 ````
+<br/>
+
+**Debugbar / IDE helper :** 
+
+Debugbar :
+```` 
+composer require barryvdh/laravel-debugbar --dev
+````
+IDE helper :
+```` 
+composer require --dev barryvdh/laravel-ide-helper
+````
+<br/>
+
+**Migration Generations, Models, Factories & Seeders :** 
+
+````
+php artisan make:migration create_examples_table
+````
+````
+php artisan make:model Example
+````
+````
+php artisan make:factory ExampleFactory
+````
+````
+php artisan make:seeder ExampleSeeder
+````
+Run migration : 
+````
+php artisan migrate
+````
+Fresh if modifications : 
+````
+php artisan migrate:fresh
+````
+Run seeders : 
+````
+php artisan db:seed
+````
+Run migration & seeder : 
+````
+php artisan migrate:fresh --seed
+````
+Option of generating seeders in the same class (DatabaseSeeder) or creating several classes (ExampleSeeder)
+which will be called in DatabaseSeeder
+
+<br/>
+
+**Controllers & CRUD :** 
+
+Simple controller :
+````
+php artisan make:controller ExampleController
+````
+Controller with associated CRUD functions and model specification :
+````
+php artisan make:controller ExampleController --model=Example --resource
+````
+
+**Resources :** 
+
+Enable you to display only certain attributes and expressively transform
+our models and model collections into JSON
+````
+php artisan make:ressource ExampleResource 
+````
+````
+php artisan make:resource Example --collection 
+````
+<br/>
+
+**Auth & policies :** 
+
 Laravel Sanctum : 
-- composer require laravel/sanctum 
-- php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider" 
-- php artisan migrate 
-
-Utiliser "HasApiToken" dans le modèle User
-Créer le controller : "php artisan make:controller Api\\AuthController" pour gérer la création
-et la connexion d'un utilisateur
-
-Protéger l'API avec l'authentification en utilisant le middleware auth:sanctum : 
-"Route::apiResource('posts', PostController::class)->middleware('auth:sanctum');"
-
-
-Générer les Policies : 
-- php artisan make:policy ExamplePolicy 
-- php artisan make:policy ExamplePolicy --model=Example  
-
-Policy Methods > Controller Methods (appelées immédiatement avant que les méthodes du contrôleur s'exécutent) : 
-viewAny > index
-view > show
-create > store (or create)
-update > edit (or update)
-delete > destroy
 ````
-**Documentation** : 
+composer require laravel/sanctum 
 ````
-https://laravel.com/docs/10.x/readme 
-https://cours.brosseau.ovh/cheatsheets/laravel/quick.html
-https://www.linkedin.com/pulse/laravel-api-authentication-using-sanctum-muhammad-babar-cfecc/
 ````
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+````
+````
+php artisan migrate 
+````
+
+<br/>
+
+Use "HasApiToken" in the User model
+Create the controller : (user creation/connection management)
+````
+php artisan make:controller Api\\AuthController
+````
+Protect the API with authentication using the auth:sanctum middleware :
+````
+Route::apiResource('posts', PostController::class)->middleware('auth:sanctum');
+````
+<br/>
+
+Generate Policies :
+````
+php artisan make:policy ExamplePolicy 
+````
+````
+php artisan make:policy ExamplePolicy --model=Example  
+````
+Policy Methods > Controller Methods (called immediately before the controller methods are executed) :
+- viewAny > index
+- view > show
+- create > store (or create)
+- update > edit (or update)
+- delete > destroy
+
+<br/>
+
+**Documentation :** 
+
+- https://laravel.com/docs/10.x/readme 
+- https://cours.brosseau.ovh/cheatsheets/laravel/quick.html
+- https://www.linkedin.com/pulse/laravel-api-authentication-using-sanctum-muhammad-babar-cfecc/
+
 
