@@ -25,17 +25,20 @@ class BusinessController extends Controller
     public function store(StoreBusinessRequest $request)
     {
         $arrayRequest = $request->all();
-        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
-        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
-        $theme = Theme::firstOrCreate(['layer', 'color_1', 'color_2' => $arrayRequest['size']]);
 
         $business = new Business();
+
+        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
+        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
+        $theme = Theme::find($arrayRequest['theme']);
+
         $business->name = $arrayRequest['name'];
         $business->description = $arrayRequest['description'];
         $business->email = $arrayRequest['email'];
         $business->history = $arrayRequest['history'];
         $business->address = $arrayRequest['address'];
         $business->logo = $arrayRequest['logo'];
+        $business->speciality = $arrayRequest['speciality'];
 
         $business->city()->associate($city);
         $business->zipCode()->associate($zipCode);
@@ -43,6 +46,7 @@ class BusinessController extends Controller
 
         $business->save();
 
+        $business = BusinessResource::make($business);
         return response()->json([
             'business'=>$business
         ]);
@@ -59,27 +63,10 @@ class BusinessController extends Controller
     public function update(StoreBusinessRequest $request, $id)
     {
         $business = Business::find($id);
-
-        $arrayRequest = $request->all();
-        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
-        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
-        $theme = Theme::firstOrCreate(['layer', 'color_1', 'color_2' => $arrayRequest['size']]);
-
-        $business->name = $arrayRequest['name'];
-        $business->description = $arrayRequest['description'];
-        $business->email = $arrayRequest['email'];
-        $business->history = $arrayRequest['history'];
-        $business->address = $arrayRequest['address'];
-        $business->logo = $arrayRequest['logo'];
-
-        $business->city()->associate($city);
-        $business->zipCode()->associate($zipCode);
-        $business->theme()->associate($theme);
-
-        $business->save();
+        $business->update($request->all());
 
         return response()->json([
-            'business' => $business
+           'business' => $business
         ]);
     }
 

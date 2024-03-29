@@ -21,10 +21,6 @@ class ProductSeeder extends Seeder
     {
         Product::factory()
             ->count(4)
-            ->for(Color::factory()->create())
-            ->for(Material::factory()->create())
-            ->for(Style::factory()->create())
-            ->for(Category::factory()->create())
             ->for(Size::factory()->create())
             ->create();
     }

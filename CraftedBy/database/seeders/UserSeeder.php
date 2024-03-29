@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             ->for(City::factory()->create())
             ->for(ZipCode::factory()->create())
             ->state(new Sequence(
-                ['role' => 'admin'],
+                ['role' => 'artisan'],
                 ['role' => 'customer']
             ))
             ->create();

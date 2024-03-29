@@ -20,11 +20,9 @@ class BusinessSeeder extends Seeder
     public function run(): void
     {
         Business::factory()
-            ->count(3)
-            ->has(Speciality::factory()->count(random_int(1,3)))
+            ->count(5)
             ->for(ZipCode::factory()->create())
             ->for(City::factory()->create())
-            ->for(Theme::factory()->create())
             ->create();
 
         Business::all()->each(function ($biz) {

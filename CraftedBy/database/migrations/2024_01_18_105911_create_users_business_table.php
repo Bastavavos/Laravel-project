@@ -32,7 +32,7 @@ return new class extends Migration
                 $table->uuid('business_id');
                 $table->foreign('business_id')
                     ->references('id')
-                    ->on('business');
+                    ->on('businesses');
 
         });
     }

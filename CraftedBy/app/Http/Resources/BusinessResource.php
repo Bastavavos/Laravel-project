@@ -15,17 +15,18 @@ class BusinessResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id'=>$this->id,
             'name'=>$this->name,
             'description'=>$this->description,
+            'speciality'=>$this->speciality,
             'history'=>$this->history,
             'email'=>$this->email,
             'address'=>$this->address,
             'logo'=>$this->logo,
 
-            'zipCode'=>$this->zipCode, // call Business Model method
-            'city'=>$this->city,
-            'theme'=>$this->theme,
-            'speciality'=>$this->speciality,
+            'zipCode'=>$this->zipCode->value,
+            'city'=>$this->city->name,
+            'theme'=>$this->theme->id,
         ];
     }
 }

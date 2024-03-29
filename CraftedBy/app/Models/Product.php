@@ -25,8 +25,8 @@ class Product extends Model
         'color_id',
         'material_id',
         'style_id',
-        'size_id',
         'category_id',
+        'size_id',
         'business_id'
     ];
 

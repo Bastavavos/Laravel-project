@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('business', function (Blueprint $table) {
+        Schema::create('businesses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->string('name');
+            $table->string('speciality');
             $table->string('description');
             $table->string('history');
             $table->string('email')->unique();
@@ -26,15 +27,6 @@ return new class extends Migration
             $table->foreignUuid('zip_code_id');
             $table->foreignUuid('city_id');
             $table->foreignUuid('theme_id');
-
-//            $table->foreign('theme_id')
-//                ->references('id')->on('themes')->cascadeOnDelete();
-//
-//            $table->foreign('zip_codes_id')
-//                ->references('id')->on('zip_codes')->cascadeOnDelete();
-//
-//            $table->foreign('city_id')
-//                ->references('id')->on('cities')->cascadeOnDelete();
         });
     }
 

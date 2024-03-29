@@ -40,7 +40,6 @@ class StoreProductRequest extends FormRequest
             'size.width' => 'required',
             'size.depth' => 'required',
             'size.capacity' => 'required',
-
         ];
     }
 }

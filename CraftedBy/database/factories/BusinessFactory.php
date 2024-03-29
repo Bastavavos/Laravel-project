@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Theme;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,8 @@ class BusinessFactory extends Factory
         return [
             'name'=>fake()->text(5),
             'description'=>fake()->text(30),
+            'speciality'=>fake()->jobTitle(),
+
             'history'=>fake()->text(30),
 
             'email' => fake()->unique()->safeEmail(),
@@ -26,6 +29,7 @@ class BusinessFactory extends Factory
 
             'address'=>fake()->address,
             'logo'=>fake()->imageUrl(25,25),
+            'theme_id'=>Theme::all()->random()->id,
         ];
     }
     public function unverified(): static

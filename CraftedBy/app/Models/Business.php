@@ -15,11 +15,18 @@ class Business extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $table = 'business';
+    protected $table = 'businesses';
 
     protected $fillable = [
+        'name',
+        'description',
+        'history',
+        'address',
+        'logo',
+        'speciality',
         'email',
         'zip_code_id',
+        'theme_id'
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -42,10 +49,5 @@ class Business extends Model
     public function theme(): BelongsTo
     {
         return $this->belongsTo(Theme::class);
-    }
-
-    public function speciality(): BelongsToMany
-    {
-        return $this->belongsToMany(Speciality::class);
     }
 }

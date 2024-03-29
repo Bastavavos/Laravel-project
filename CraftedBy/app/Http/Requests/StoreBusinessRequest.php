@@ -22,29 +22,14 @@ class StoreBusinessRequest extends FormRequest
         return [
             'name' => 'string|required|max:255',
             'description' => 'string|required|max:255',
+            'speciality' => 'string|required',
             'history' => 'string|required',
             'email' => 'email|required',
             'address' => 'string|required|max:255',
-
-            'zip_code' => 'string|required|max:5',
-            'city' => 'string|required|max:255',
-//            'layer' => '',
-            'color_1' => 'hex_color',
-            'color_2' => 'hex_color'
+            'logo' => 'string|required',
+            'zip_code' => 'string|required',
+            'city' => 'string|required',
+            'theme' => 'string|required',
         ];
     }
-
-//    public function messages()
-//    {
-//        return [
-//            'name.required' => 'name of business is required',
-//            'name.string' => 'name must be a string',
-//
-//            'description.required' => 'description of business is required',
-//            'description.string' => 'description must be a string',
-//
-//            'history.required' => 'history of business is required',
-//            'history.string' => 'history must be a string',
-//        ];
-//    }
 }

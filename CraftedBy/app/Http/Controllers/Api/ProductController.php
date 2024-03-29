@@ -18,10 +18,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-       $products = ProductResource::collection(Product::all());
+        $products = ProductResource::collection(Product::all());
         return response()->json([
-            'products'=>$products,
-            'status'=>true
+            'products' => $products,
+            'status' => true
         ]);
     }
 
@@ -31,13 +31,17 @@ class ProductController extends Controller
 
         $product = new Product();
 
-        $style = Style::find($arrayRequest['style']);
-        $category = Category::find($arrayRequest['category']);
-        $business = Business::find($arrayRequest['business']);
+        $category = Category::select()->where('name', $arrayRequest['category'])->first();
+        $color = Color::select()->where('name', $arrayRequest['color'])->first();
+        $material = Material::select()->where('name', $arrayRequest['material'])->first();
+        $style = Style::select()->where('name', $arrayRequest['style'])->first();
 
-        $color = Color::firstOrCreate(['name' => $arrayRequest['color']]);
-        $material = Material::firstOrCreate(['name' => $arrayRequest['material']]);
+        if (!$category || !$color || !$material || !$style) {
+            return response()->json(['error' => 'it does not exist'], 404);
+        }
+
         $size = Size::create($arrayRequest['size']);
+        $business = Business::find($arrayRequest['business']);
 
         $product->description = $arrayRequest['description'];
         $product->name = $arrayRequest['name'];
@@ -48,16 +52,17 @@ class ProductController extends Controller
 
         $product->style()->associate($style);
         $product->category()->associate($category);
-        $product->business()->associate($business);
-
         $product->color()->associate($color);
         $product->material()->associate($material);
+
+        $product->business()->associate($business);
         $product->size()->associate($size);
 
         $product->save();
 
+        $product = ProductResource::make($product);
         return response()->json([
-            'product'=>$product
+            'product' => $product,
         ]);
     }
 
@@ -65,7 +70,7 @@ class ProductController extends Controller
     {
         $product = ProductResource::make(Product::find($id));
         return response()->json([
-            'product'=>$product,
+            'product' => $product,
         ]);
     }
 
@@ -78,6 +83,7 @@ class ProductController extends Controller
             'product' => $product
         ]);
     }
+
     public function destroy($id)
     {
         $product = Product::find($id);

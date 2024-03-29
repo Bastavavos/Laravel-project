@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BusinessController;
-use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
@@ -20,8 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::apiResource('posts', UserController::class)->middleware('auth:sanctum');
-
 Route::group(['middleware'=>'auth:sanctum'], function () {
 Route::apiResource('user', UserController::class);
 });
@@ -35,21 +32,23 @@ Route::get('users/{id}',[UserController::class,'show']);
 Route::delete('users/{id}',[UserController::class,'destroy']);
 Route::put('users/{id}',[UserController::class,'update']);
 
+Route::apiResource('product', ProductController::class);
 Route::get('products',[ProductController::class,'index']);
 Route::get('products/{id}',[ProductController::class,'show']);
 Route::post('products',[ProductController::class,'store']);
 Route::delete('products/{id}',[ProductController::class,'destroy']);
 Route::put('products/{id}',[ProductController::class,'update']);
 
-Route::get('categories',[CategoryController::class,'index']);
-Route::get('categories/{id}',[CategoryController::class,'show']);
-Route::post('categories',[CategoryController::class,'store']);
-Route::delete('categories/{id}',[CategoryController::class,'destroy']);
-Route::put('categories/{id}',[CategoryController::class,'update']);
-
+Route::apiResource('business', BusinessController::class);
 Route::get('business',[BusinessController::class,'index']);
 Route::get('business/{id}',[BusinessController::class,'show']);
 Route::post('business',[BusinessController::class,'store']);
 Route::delete('business/{id}',[BusinessController::class,'destroy']);
 Route::put('business/{id}',[BusinessController::class,'update']);
 
+Route::apiResource('invoice', InvoiceController::class);
+Route::get('invoices',[InvoiceController::class,'index']);
+Route::get('invoices/{id}',[InvoiceController::class,'show']);
+Route::post('invoices',[InvoiceController::class,'store']);
+Route::delete('invoices/{id}',[InvoiceController::class,'destroy']);
+Route::put('invoices/{id}',[InvoiceController::class,'update']);

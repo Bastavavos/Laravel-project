@@ -19,17 +19,15 @@ class ProductResource extends JsonResource
             'name'=>$this->name,
             'image'=>$this->image,
             'price'=>$this->price,
-
-            'stock'=>$this->stock,  // if select one product
+            'stock'=>$this->stock,
             'active'=>$this->active,
             'description'=>$this->description,
-
-            'color'=>$this->color,  // call methods Product model
-            'material'=>$this->material,
-            'style'=>$this->style,
+            'category'=> $this->category->name,
+            'color'=>$this->color->name,
+            'material'=>$this->material->name,
+            'style'=>$this->style->name,
             'size'=>$this->size,
-            'category'=>$this->category,
-            'business'=>$this->business,
+            'business'=>$this->business->name,
         ];
     }
 }
