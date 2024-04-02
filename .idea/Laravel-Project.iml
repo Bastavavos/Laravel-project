@@ -8,6 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/CraftedBy/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/CraftedBy/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/CraftedBy/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/CraftedBy/tests/Unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/barryvdh/laravel-debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/barryvdh/reflection-docblock" />

@@ -32,11 +32,13 @@ Development of an API for e-commerce website designed to present and sell craft 
 
 **Initialisation :** 
 
-- Installing php composer
-
-Project creation : 
+Project creation :
 ````
 composer create-project laravel/laravel:^10.0 example-app
+````
+Run : 
+````
+composer install
 ````
 - Create your database and configure the connection in the ".env" file
 
@@ -72,7 +74,7 @@ php artisan make:factory ExampleFactory
 ````
 php artisan make:seeder ExampleSeeder
 ````
-Run migration : 
+Run migrations : 
 ````
 php artisan migrate
 ````
@@ -84,7 +86,7 @@ Run seeders :
 ````
 php artisan db:seed
 ````
-Run migration & seeder : 
+Run migrations & seeders : 
 ````
 php artisan migrate:fresh --seed
 ````

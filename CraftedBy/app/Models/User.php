@@ -19,7 +19,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasUuids;
 
-    public mixed $role;
+//    public mixed $role;
 
     /**
      * The attributes that are mass assignable.
@@ -33,7 +33,7 @@ class User extends Authenticatable
         'email',
         'password',
         'address',
-        'role',
+        'role_id',
         'zip_code_id',
         'city_id'
     ];
@@ -73,5 +73,10 @@ class User extends Authenticatable
     public function invoice(): HasMany
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 }

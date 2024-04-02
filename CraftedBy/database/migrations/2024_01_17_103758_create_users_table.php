@@ -20,18 +20,13 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('address');
-            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
 
+            $table->foreignUuid('role_id');
+
             $table->foreignUuid('zip_code_id');
             $table->foreignUuid('city_id');
-
-//            $table->foreign('zip_code_id')
-//                ->references('id')->on('zip_codes')->cascadeOnDelete();
-//
-//            $table->foreign('city_id')
-//                ->references('id')->on('cities')->cascadeOnDelete();
         });
     }
 

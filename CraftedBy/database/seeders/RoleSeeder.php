@@ -2,23 +2,24 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ColorSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $colors = ['Black', 'White', 'Red', 'Green', 'Blue', 'Yellow', 'Purple', 'Orange', 'Brown', 'Pink', 'Grey'];
+        $roles = ['artisan', 'customer', 'visitor', 'owner'];
 
-        foreach ($colors as $color) {
-            DB::table('colors')->insert([
+        foreach ($roles as $role) {
+            DB::table('roles')->insert([
                 'id' => uuid_create(),
-                'name' => $color
+                'name' => $role
             ]);
         }
     }
