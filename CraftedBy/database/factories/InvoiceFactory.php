@@ -17,7 +17,11 @@ class InvoiceFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::all()->random(1)->value('id');
+        // Assuming you want to exclude the user with id 1
+        $excludedId = 1;
+
+        // Select a random user excluding the specified id
+        $user = User::where('id', '!=', $excludedId)->inRandomOrder()->first()->id;
         return [
             'customer_id' => $user,
         ];
