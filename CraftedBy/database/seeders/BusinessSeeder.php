@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Business;
 use App\Models\City;
 use App\Models\Product;
-use App\Models\Speciality;
 use App\Models\Theme;
 use App\Models\User;
 use App\Models\ZipCode;
@@ -26,7 +25,13 @@ class BusinessSeeder extends Seeder
             ->create();
 
         Business::all()->each(function ($biz) {
-            $biz->owner()->attach(User::all()->random(rand(1, 2))->pluck('id'));
+            // Assuming you want to exclude the user with id 1
+            $excludedUserId = 1;
+
+            // Select random users excluding the specified user_id
+            $users = User::where('id', '!=', $excludedUserId)
+                ->inRandomOrder()->take(rand(1, 2))->pluck('id');
+            $biz->owner()->attach($users);
         });
     }
 }
