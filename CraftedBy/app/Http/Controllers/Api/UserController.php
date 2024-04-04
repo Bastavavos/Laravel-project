@@ -11,24 +11,69 @@ use App\Models\User;
 use App\Models\ZipCode;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /**
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function index()
     {
-//      $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', User::class);
 
         $users = UserResource::collection(User::all());
+
         return response()->json([
             'users' => $users,
             'status' => true
         ]);
     }
 
-// switch with function createUSer in my AuthController
+    /**
+     * @throws AuthorizationException
+     */
+    public function show($id)
+    {
+        $this->authorize('view', User::class);
+
+        $user = UserResource::make(User::find($id));
+        return response()->json([
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function update(StoreUserRequest $request, $id)
+    {
+        $this->authorize('update', User::class);
+
+        $user = User::find($id);
+        $user->update($request->all());
+
+        return response()->json([
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function destroy($id)
+    {
+        $this->authorize('delete', User::class);
+
+        $user = User::find($id);
+        $user->delete();
+    }
+
+// switch with function createUser in my AuthController
 
 //    public function store(StoreUserRequest $request)
 //    {
@@ -54,28 +99,5 @@ class UserController extends Controller
 //        ]);
 //    }
 
-    public function show($id)
-    {
-        $user = UserResource::make(User::find($id));
-        return response()->json([
-            'user' => $user
-        ]);
-    }
-
-    public function update(StoreUserRequest $request, $id)
-    {
-        $user = User::find($id);
-        $user->update($request->all());
-
-        return response()->json([
-            'user' => $user
-        ]);
-    }
-
-    public function destroy($id)
-    {
-        $user = User::find($id);
-        $user->delete();
-    }
 }
 

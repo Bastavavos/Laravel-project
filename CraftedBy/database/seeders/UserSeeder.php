@@ -24,32 +24,34 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        $roles = DB::table('roles')->pluck('id')->toArray();
+        $roles = DB::table('roles')->pluck('name')->toArray();
 
         User::factory()
             ->count(5)
             ->for(City::factory()->create())
             ->for(ZipCode::factory()->create())
             ->create(function (array $attributes) use ($roles, $faker) {
-                // Filter out the role_id of 1
+
+                // Filter out the role_name of Owner
+
                 $filteredRoles = array_filter($roles, function ($role) {
-                    return $role != 1;
+                    return $role != 'Owner';
                 });
                 return ['role_id' => $faker->randomElement($filteredRoles)];
             });
 
         DB::table('users')->insert([
-            'id' => 1,
-            'firstname' => 'Bastien',
-            'lastname' => 'Pelletier',
-            'email' => 'bastien.pelletier74@gmail.com',
-            'email_verified_at' => now(),
+            'id' => uuid_create(),
+            'firstname' => 'Bastos',
+            'lastname' => 'superAdmin',
+            'email' => '0',
+            'email_verified_at' => null,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'address' => '0',
             'zip_code_id' => '0',
             'city_id' => '0',
-            'role_id' => 1,
+            'role_id' => 'Owner',
         ]);
     }
 }

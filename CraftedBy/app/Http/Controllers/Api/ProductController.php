@@ -12,6 +12,8 @@ use App\Models\Material;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\Style;
+use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,46 +27,89 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(StoreProductRequest $request)
     {
-        $arrayRequest = $request->all();
+        $this->authorize('create', Product::class);
 
-        $product = new Product();
+        $product = Product::create([
+            'description' => $request->input('description'),
+            'name' => $request->input('name'),
+            'image' => $request->input('image'),
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock'),
+            'active' => $request->input('active'),
+        ]);
 
-        $category = Category::select()->where('name', $arrayRequest['category'])->first();
-        $color = Color::select()->where('name', $arrayRequest['color'])->first();
-        $material = Material::select()->where('name', $arrayRequest['material'])->first();
-        $style = Style::select()->where('name', $arrayRequest['style'])->first();
+        $category = Category::firstWhere('name', $request->input('category'));
+        $color = Color::firstWhere('name', $request->input('color'));
+        $material = Material::firstWhere('name', $request->input('material'));
+        $style = Style::firstWhere('name', $request->input('style'));
 
         if (!$category || !$color || !$material || !$style) {
-            return response()->json(['error' => 'it does not exist'], 404);
+            return response()->json(['error' => 'One or more required attributes do not exist'], 404);
         }
 
-        $size = Size::create($arrayRequest['size']);
-        $business = Business::find($arrayRequest['business']);
-
-        $product->description = $arrayRequest['description'];
-        $product->name = $arrayRequest['name'];
-        $product->image = $arrayRequest['image'];
-        $product->price = $arrayRequest['price'];
-        $product->stock = $arrayRequest['stock'];
-        $product->active = $arrayRequest['active'];
+        $size = Size::create($request->input('size'));
+        $business = Business::find($request->input('business'));
 
         $product->style()->associate($style);
         $product->category()->associate($category);
         $product->color()->associate($color);
         $product->material()->associate($material);
-
         $product->business()->associate($business);
         $product->size()->associate($size);
 
         $product->save();
 
-        $product = ProductResource::make($product);
+        $productResource = ProductResource::make($product);
         return response()->json([
-            'product' => $product,
+            'product' => $productResource,
         ]);
     }
+
+// old
+//        $this->authorize('create', Product::class);
+//
+//        $arrayRequest = $request->all();
+//
+//        $product = new Product();
+//
+//        $category = Category::select()->where('name', $arrayRequest['category'])->first();
+//        $color = Color::select()->where('name', $arrayRequest['color'])->first();
+//        $material = Material::select()->where('name', $arrayRequest['material'])->first();
+//        $style = Style::select()->where('name', $arrayRequest['style'])->first();
+//
+//        if (!$category || !$color || !$material || !$style) {
+//            return response()->json(['error' => 'it does not exist'], 404);
+//        }
+//
+//        $size = Size::create($arrayRequest['size']);
+//        $business = Business::find($arrayRequest['business']);
+//
+//        $product->description = $arrayRequest['description'];
+//        $product->name = $arrayRequest['name'];
+//        $product->image = $arrayRequest['image'];
+//        $product->price = $arrayRequest['price'];
+//        $product->stock = $arrayRequest['stock'];
+//        $product->active = $arrayRequest['active'];
+//
+//        $product->style()->associate($style);
+//        $product->category()->associate($category);
+//        $product->color()->associate($color);
+//        $product->material()->associate($material);
+//        $product->business()->associate($business);
+//        $product->size()->associate($size);
+//
+//        $product->save();
+//
+//        $product = ProductResource::make($product);
+//        return response()->json([
+//            'product' => $product,
+//        ]);
+//    }
 
     public function show($id)
     {
@@ -74,8 +119,13 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(StoreProductRequest $request, $id)
     {
+        $this->authorize('update', Product::class);
+
         $product = Product::find($id);
         $product->update($request->all());
 
@@ -84,8 +134,13 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy($id)
     {
+        $this->authorize('delete', Product::class);
+
         $product = Product::find($id);
         $product->delete();
     }

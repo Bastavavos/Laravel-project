@@ -29,7 +29,7 @@ class ProductPolicy
      */
     public function create(User $user): bool
     {
-//        return $user->role === 'artisan' || 'admin';
+        return $user->role_id === 'Artisan';
     }
 
     /**
@@ -37,7 +37,9 @@ class ProductPolicy
      */
     public function update(User $user, Product $product): bool
     {
-//        return $user->role === 'artisan' || 'admin';
+        $artisan = $product->business->user;
+
+        return ($user->id === $artisan->id && $user->role_id === 'Artisan') || $user->role_id === 'Owner';
     }
 
     /**
@@ -45,7 +47,9 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product): bool
     {
-//        return $user->role === 'artisan' || 'admin';
+        $artisan = $product->business->user;
+
+        return ($user->id === $artisan->id && $user->role_id === 'Artisan') || $user->role_id === 'Owner';
     }
 
     /**
@@ -53,7 +57,9 @@ class ProductPolicy
      */
     public function restore(User $user, Product $product): bool
     {
-//        return $user->role === 'artisan' || 'admin';
+        $artisan = $product->business->user;
+
+        return ($user->id === $artisan->id && $user->role_id === 'Artisan') || $user->role_id === 'Owner';
     }
 
     /**
@@ -61,6 +67,8 @@ class ProductPolicy
      */
     public function forceDelete(User $user, Product $product): bool
     {
-//        return $user->role === 'artisan' || 'admin';
+        $artisan = $product->business->user;
+
+        return ($user->id === $artisan->id && $user->role_id === 'Artisan') || $user->role_id === 'Owner';
     }
 }

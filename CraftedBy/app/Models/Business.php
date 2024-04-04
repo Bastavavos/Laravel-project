@@ -25,6 +25,7 @@ class Business extends Model
         'logo',
         'speciality',
         'email',
+        'city_id',
         'zip_code_id',
         'theme_id'
     ];

@@ -15,11 +15,11 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         DB::table('roles')->insert([
-            'id' => 1,
-            'name' => 'owner'
+            'id' => uuid_create(),
+            'name' => 'Owner'
         ]);
 
-        $roles = ['artisan', 'customer', 'visitor'];
+        $roles = ['Artisan', 'Customer', 'Visitor'];
 
         foreach ($roles as $role) {
             DB::table('roles')->insert([

@@ -9,6 +9,7 @@ use App\Models\Business;
 use App\Models\City;
 use App\Models\Theme;
 use App\Models\ZipCode;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class BusinessController extends Controller
@@ -22,23 +23,26 @@ class BusinessController extends Controller
         ]);
     }
 
-    public function store(StoreBusinessRequest $request)
-    {
-        $arrayRequest = $request->all();
+    /**
+     * @throws AuthorizationException
+     */
+    public function store(StoreBusinessRequest $request){
 
-        $business = new Business();
+        $this->authorize('create', Business::class);
 
-        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
-        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
-        $theme = Theme::find($arrayRequest['theme']);
+        $business = Business::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'email' => $request->input('email'),
+            'history' => $request->input('history'),
+            'address' => $request->input('address'),
+            'logo' => $request->input('logo'),
+            'speciality' => $request->input('speciality'),
+        ]);
 
-        $business->name = $arrayRequest['name'];
-        $business->description = $arrayRequest['description'];
-        $business->email = $arrayRequest['email'];
-        $business->history = $arrayRequest['history'];
-        $business->address = $arrayRequest['address'];
-        $business->logo = $arrayRequest['logo'];
-        $business->speciality = $arrayRequest['speciality'];
+        $zipCode = ZipCode::firstOrCreate(['value' => $request->input('zip_code')]);
+        $city = City::firstOrCreate(['name' => $request->input('city')]);
+        $theme = Theme::find($request->input('theme'));
 
         $business->city()->associate($city);
         $business->zipCode()->associate($zipCode);
@@ -46,11 +50,43 @@ class BusinessController extends Controller
 
         $business->save();
 
-        $business = BusinessResource::make($business);
+        $businessResource = BusinessResource::make($business);
         return response()->json([
-            'business'=>$business
+            'business' => $businessResource
         ]);
     }
+
+// old
+//    {
+//        $this->authorize('create', Business::class);
+//
+//        $arrayRequest = $request->all();
+//
+//        $business = new Business();
+//
+//        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
+//        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
+//        $theme = Theme::find($arrayRequest['theme']);
+//
+//        $business->name = $arrayRequest['name'];
+//        $business->description = $arrayRequest['description'];
+//        $business->email = $arrayRequest['email'];
+//        $business->history = $arrayRequest['history'];
+//        $business->address = $arrayRequest['address'];
+//        $business->logo = $arrayRequest['logo'];
+//        $business->speciality = $arrayRequest['speciality'];
+//
+//        $business->city()->associate($city);
+//        $business->zipCode()->associate($zipCode);
+//        $business->theme()->associate($theme);
+//
+//        $business->save();
+//
+//        $business = BusinessResource::make($business);
+//        return response()->json([
+//            'business'=>$business
+//        ]);
+//    }
 
     public function show($id)
     {
@@ -60,8 +96,13 @@ class BusinessController extends Controller
         ]);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(StoreBusinessRequest $request, $id)
     {
+        $this->authorize('update', Business::class);
+
         $business = Business::find($id);
         $business->update($request->all());
 
@@ -70,8 +111,13 @@ class BusinessController extends Controller
         ]);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy($id)
     {
+        $this->authorize('delete', Business::class);
+
         $business = Business::find($id);
         $business->delete();
     }
