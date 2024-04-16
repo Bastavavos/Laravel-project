@@ -141,6 +141,10 @@
       <path value="$PROJECT_DIR$/CraftedBy/vendor/fakerphp/faker" />
       <path value="$PROJECT_DIR$/CraftedBy/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/CraftedBy/vendor/league/flysystem-local" />
+      <path value="$PROJECT_DIR$/CraftedBy/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/CraftedBy/vendor/darkaonline/l5-swagger" />
+      <path value="$PROJECT_DIR$/CraftedBy/vendor/swagger-api/swagger-ui" />
+      <path value="$PROJECT_DIR$/CraftedBy/vendor/doctrine/annotations" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

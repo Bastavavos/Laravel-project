@@ -22,6 +22,17 @@ class UserController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
+
+    /**
+     * @OA\Get(
+     *     path="/users",
+     *     summary="Get all users",
+     *     tags={"User"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+
     public function index()
     {
         $this->authorize('viewAny', User::class);
@@ -37,6 +48,23 @@ class UserController extends Controller
     /**
      * @throws AuthorizationException
      */
+
+    /**
+     * @OA\Get(
+     *     path="/users/{id}",
+     *     summary="Get one user",
+     *     tags={"User"},
+     *     @OA\Parameter (
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="User ID",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
     public function show($id)
     {
         $this->authorize('view', User::class);
@@ -49,6 +77,16 @@ class UserController extends Controller
 
     /**
      * @throws AuthorizationException
+     */
+
+    /**
+     * @OA\Put(
+     *     path="/users/{id}",
+     *     summary="Update user",
+     *     tags={"User"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
      */
     public function update(StoreUserRequest $request, $id)
     {
@@ -65,6 +103,17 @@ class UserController extends Controller
     /**
      * @throws AuthorizationException
      */
+
+    /**
+     * @OA\Delete (
+     *     path="/users/{id}",
+     *     summary="Delete user",
+     *     tags={"User"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+
     public function destroy($id)
     {
         $this->authorize('delete', User::class);

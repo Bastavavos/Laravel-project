@@ -14,6 +14,16 @@ use Illuminate\Http\Request;
 
 class BusinessController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/business",
+     *     summary="Get all businesses",
+     *     tags={"Business"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+
     public function index()
     {
         $businesses = BusinessResource::collection(Business::all());
@@ -88,6 +98,15 @@ class BusinessController extends Controller
 //        ]);
 //    }
 
+    /**
+     * @OA\Get(
+     *     path="/business/{id}",
+     *     summary="Get business",
+     *     tags={"Business"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
     public function show($id)
     {
         $business = BusinessResource::make(Business::find($id));
@@ -98,6 +117,16 @@ class BusinessController extends Controller
 
     /**
      * @throws AuthorizationException
+     */
+
+    /**
+     * @OA\Put(
+     *     path="/business",
+     *     summary="Update business",
+     *     tags={"Business"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
      */
     public function update(StoreBusinessRequest $request, $id)
     {
@@ -113,6 +142,16 @@ class BusinessController extends Controller
 
     /**
      * @throws AuthorizationException
+     */
+
+    /**
+     * @OA\Delete(
+     *     path="/business",
+     *     summary="Delete business",
+     *     tags={"Business"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
      */
     public function destroy($id)
     {

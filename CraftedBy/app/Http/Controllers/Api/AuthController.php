@@ -71,7 +71,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function loginUser(Request $request): \Illuminate\Http\JsonResponse
+    public function login(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
             $validateUser = Validator::make($request->all(),
@@ -109,5 +109,14 @@ class AuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function logout(Request $request): \Illuminate\Http\JsonResponse
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Logout Successful!',
+        ], 200);
     }
 }

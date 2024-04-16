@@ -11,6 +11,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @mixin IdeHelperProduct
  */
+
+/**
+ * @OA\Schema(schema="Product",
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="image_path", type="string"),
+ *     @OA\Property(property="price", type="number"),
+ *     @OA\Property(property="stock", type="integer"),
+ *     @OA\Property(property="active", type="tinyint"),
+ *     @OA\Property(property="description", type="string"),
+ *     @OA\Property(property="color_id", type="string", format="uuid"),
+ *     @OA\Property(property="material_id", type="string", format="uuid"),
+ *     @OA\Property(property="style_id", type="string", format="uuid"),
+ *     @OA\Property(property="category_id", type="string", format="uuid"),
+ *     @OA\Property(property="size_id", type="string", format="uuid"),
+ *     @OA\Property(property="business_id", type="string", format="uuid")
+ * )
+ */
+
 class Product extends Model
 {
     use HasFactory, HasUuids;

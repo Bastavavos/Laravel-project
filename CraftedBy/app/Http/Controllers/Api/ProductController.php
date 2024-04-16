@@ -16,8 +16,65 @@ use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
+use OpenApi\Annotations as OA;
+
 class ProductController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/products",
+     *     summary="Get all products",
+     *     tags={"Product"},
+     *
+     *     @OA\Parameter(
+     *     name="color",
+     *     in="query",
+     *     description="Add color filter",
+     *     required=false,
+     *     @OA\Schema(type="string")
+     *     ),
+     *      @OA\Parameter(
+     *      name="material",
+     *      in="query",
+     *      description="Add material filter",
+     *      required=false,
+     *      @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *      name="style",
+     *      in="query",
+     *      description="Add style filter",
+     *      required=false,
+     *      @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *      name="category",
+     *      in="query",
+     *      description="Add category filter",
+     *      required=false,
+     *      @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *      name="size",
+     *      in="query",
+     *      description="Add size filter",
+     *      required=false,
+     *      @OA\Schema(type="string")
+     *      ),
+     *       @OA\Parameter(
+     *       name="business",
+     *       in="query",
+     *       description="Add business filter",
+     *       required=false,
+     *       @OA\Schema(type="string")
+     *       ),
+     *
+     *    @OA\Response(response=200, description="Success"),
+     *    @OA\Response(response=400, description="Invalid request"),
+     *    @OA\Response(response=404, description="Product not found")
+     * )
+     */
+
     public function index()
     {
         $products = ProductResource::collection(Product::all());
@@ -111,6 +168,15 @@ class ProductController extends Controller
 //        ]);
 //    }
 
+    /**
+     * @OA\Get(
+     *     path="/products/{id}",
+     *     summary="Get one product",
+     *     tags={"Product"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
     public function show($id)
     {
         $product = ProductResource::make(Product::find($id));
@@ -121,6 +187,16 @@ class ProductController extends Controller
 
     /**
      * @throws AuthorizationException
+     */
+
+    /**
+     * @OA\Put(
+     *     path="/products/{id}",
+     *     summary="Update product",
+     *     tags={"Product"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
      */
     public function update(StoreProductRequest $request, $id)
     {
@@ -137,6 +213,17 @@ class ProductController extends Controller
     /**
      * @throws AuthorizationException
      */
+
+    /**
+     * @OA\Delete(
+     *     path="/products/{id}",
+     *     summary="Delete product",
+     *     tags={"Product"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+
     public function destroy($id)
     {
         $this->authorize('delete', Product::class);
