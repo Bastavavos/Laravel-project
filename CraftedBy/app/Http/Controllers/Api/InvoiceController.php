@@ -20,10 +20,25 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function store(StoreInvoiceRequest $request):void
+    public function store(StoreInvoiceRequest $request)
     {
-        //
+        // Validate the request data
+        $validatedData = $request->validate([
+            'customer_id' => 'required|uuid|exists:users,id',
+            'product_id' => 'required|uuid|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        // Create a new invoice
+        $invoice = Invoice::create(['customer_id' => $validatedData['customer_id']]);
+
+        // Associate product
+        $invoice->product()->attach($validatedData['product_id'], ['product_quantity' => $validatedData['quantity']]);
+
+        // Return a response or redirect
+        return response()->json($invoice, 201);
     }
+
 
     public function show($id)
     {

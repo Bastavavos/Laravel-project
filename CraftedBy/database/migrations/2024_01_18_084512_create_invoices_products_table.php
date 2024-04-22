@@ -15,10 +15,6 @@ return new class extends Migration
             $table->foreignUuid('invoice_id');
             $table->foreignUuid('product_id');
 
-//            $table->foreign('invoice_id')
-//                ->references('id')
-//                ->on('invoices');
-
             $table->foreign('invoice_id')
                 ->references('id')
                 ->on('invoices')->onDelete('cascade');

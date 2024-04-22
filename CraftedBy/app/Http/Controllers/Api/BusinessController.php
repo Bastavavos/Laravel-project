@@ -27,10 +27,11 @@ class BusinessController extends Controller
     public function index()
     {
         $businesses = BusinessResource::collection(Business::all());
-        return response()->json([
-            'business'=>$businesses,
-            'status'=>true
-        ]);
+//        return response()->json([
+//            'business'=>$businesses,
+//            'status'=>true
+//        ]);
+        return response()->json($businesses, 200);
     }
 
     /**

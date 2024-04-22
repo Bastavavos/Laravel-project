@@ -3,6 +3,7 @@
   <component name="PHPUnit">
     <option name="directories">
       <list>
+        <option value="$PROJECT_DIR$/CraftedBy/gen/tests" />
         <option value="$PROJECT_DIR$/CraftedBy/tests" />
       </list>
     </option>

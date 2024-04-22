@@ -37,7 +37,9 @@ class BusinessPolicy
      */
     public function update(User $user, Business $business): bool
     {
-        return $user->role_id === 'Artisan' || $user->role_id === 'Owner';
+        $artisan = $business->user;
+
+        return ($user->id === $artisan->id && $user->role_id === 'Artisan') || $user->role_id === 'Owner';
     }
 
     /**

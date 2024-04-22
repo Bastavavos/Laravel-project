@@ -78,10 +78,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = ProductResource::collection(Product::all());
-        return response()->json([
-            'products' => $products,
-            'status' => true
-        ]);
+//        return response()->json([
+//            'products' => $products,
+//            'status' => true
+//        ]);
+        return response()->json($products, 200);
     }
 
     /**

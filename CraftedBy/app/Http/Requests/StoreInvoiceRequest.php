@@ -23,7 +23,8 @@ class StoreInvoiceRequest extends FormRequest
     {
         return [
             'customer_id' => 'required',
-            'status' => 'string|required'
+            'product_id' => 'required',
+            'quantity' => 'integer|required',
         ];
     }
 }

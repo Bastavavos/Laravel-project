@@ -17,7 +17,8 @@ class InvoiceResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'customer'=> new UserResource($this->resource->customer),
+//           'customer'=> new UserResource($this->resource->customer),
+            'customer' => $this->customer_id,
             'status'=> $this->status->last()->name,
             'update_at'=>$this->status->last()->pivot->updated_at,
         ];
