@@ -1,0 +1,33 @@
+services:
+    db:
+        image: mysql:latest
+        container_name: mysql_db
+        environment:
+            MYSQL_DATABASE: 'CraftedBy_DB'
+            MYSQL_USER: 'bastos'
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_PASSWORD: 'password'
+            SERVICE_TAGS: 'dev'
+            SERVICE_NAME: 'mysql'
+        volumes:
+            - 'dbdata:/var/lib/mysql'
+# exposé sur port 3307(machine), expédié par 3306
+        ports:
+            - '3307:3306'
+
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel_app
+        ports:
+            - "8000:80"
+        environment:
+            DB_CONNECTION: "mysql"
+            DB_HOST: "db"
+            DB_PORT: "3306"
+            DB_DATABASE: "CraftedBy_DB"
+            DB_USERNAME: "bastos"
+            DB_PASSWORD: "password"
+volumes:
+    dbdata:
