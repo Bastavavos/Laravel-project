@@ -7,13 +7,17 @@ use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', User::class);
+
         $invoices = InvoiceResource::collection(Invoice::all());
+
         return response()->json([
             'invoices' => $invoices,
             'status' => true

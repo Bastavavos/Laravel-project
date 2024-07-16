@@ -21,10 +21,10 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $style = Style::first()->id;
-        $material = Material::first()->id;
-        $color = Color::first()->id;
-        $category = Category::first()->id;
+        $style = Style::all()->random(1)->value('id');
+        $material = Material::all()->random(1)->value('id');
+        $color = Color::all()->random(2)->value('id');
+        $category = Category::all()->random(1)->value('id');
         $biz = Business::all()->random(1)->value('id');
 
         return [

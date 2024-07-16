@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::factory()
-            ->count(4)
+            ->count(20)
             ->for(Size::factory()->create())
             ->create();
     }

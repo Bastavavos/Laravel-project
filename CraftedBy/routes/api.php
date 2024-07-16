@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BusinessController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\InvoiceController;
+use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -23,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 //Users
 Route::group(['middleware'=>'auth:sanctum'], function () {
 Route::apiResource('user', UserController::class);
+Route::apiResource('invoice', InvoiceController::class);
 });
 
 Route::post('/auth/register', [AuthController::class, 'createUser']);
@@ -50,8 +53,17 @@ Route::post('business',[BusinessController::class,'store']);
 Route::delete('business/{id}',[BusinessController::class,'destroy']);
 Route::put('business/{id}',[BusinessController::class,'update']);
 
+//Categories
+Route::apiResource('category', CategoryController::class);
+Route::get('category',[CategoryController::class,'index']);
+Route::get('products/category/{id}',[CategoryController::class,'__invoke']);
+
+//Materials
+Route::apiResource('material', MaterialController::class);
+Route::get('material',[MaterialController::class,'index']);
+Route::get('products/material/{id}',[MaterialController::class,'__invoke']);
+
 //Invoices
-Route::apiResource('invoice', InvoiceController::class);
 Route::get('invoices',[InvoiceController::class,'index']);
 Route::get('invoices/{id}',[InvoiceController::class,'show']);
 Route::post('invoices',[InvoiceController::class,'store']);

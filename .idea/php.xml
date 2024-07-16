@@ -145,6 +145,7 @@
       <path value="$PROJECT_DIR$/CraftedBy/vendor/darkaonline/l5-swagger" />
       <path value="$PROJECT_DIR$/CraftedBy/vendor/swagger-api/swagger-ui" />
       <path value="$PROJECT_DIR$/CraftedBy/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/CraftedBy/vendor/abbasudo/laravel-purity" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2">

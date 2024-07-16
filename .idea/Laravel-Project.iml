@@ -6,11 +6,13 @@
       <sourceFolder url="file://$MODULE_DIR$/CraftedBy/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/CraftedBy/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
       <sourceFolder url="file://$MODULE_DIR$/CraftedBy/tests" isTestSource="true" packagePrefix="Tests\" />
-      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/CraftedBy/gen/lib" isTestSource="false" packagePrefix="OpenAPI\Client\" />
       <sourceFolder url="file://$MODULE_DIR$/CraftedBy/gen/test" isTestSource="true" packagePrefix="OpenAPI\Client\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/CraftedBy/gen/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/CraftedBy/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/CraftedBy/tests/Unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/barryvdh/laravel-debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/barryvdh/reflection-docblock" />
@@ -139,6 +141,7 @@
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/darkaonline/l5-swagger" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/swagger-api/swagger-ui" />
+      <excludeFolder url="file://$MODULE_DIR$/CraftedBy/vendor/abbasudo/laravel-purity" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
