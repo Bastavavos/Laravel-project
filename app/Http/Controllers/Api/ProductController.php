@@ -181,7 +181,6 @@ class ProductController extends Controller
      *     @OA\Response(response=400, description="Invalid request")
      * )
      */
-
     public function destroy($id)
     {
         $this->authorize('delete', Product::class);
