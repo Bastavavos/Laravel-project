@@ -6,6 +6,9 @@
         <option value="$PROJECT_DIR$/CraftedBy/gen/tests" />
         <option value="$PROJECT_DIR$/CraftedBy/tests/Unit" />
         <option value="$PROJECT_DIR$/CraftedBy/tests/Feature" />
+        <option value="$PROJECT_DIR$/gen/tests" />
+        <option value="$PROJECT_DIR$/tests/Unit" />
+        <option value="$PROJECT_DIR$/tests/Feature" />
       </list>
     </option>
   </component>

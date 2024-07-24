@@ -30,7 +30,10 @@ Route::apiResource('invoice', InvoiceController::class);
 
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::post('/auth/logout', [AuthController::class, 'logout']);
+Route::middleware(['auth:sanctum'])->post('auth/logout', [AuthController::class, 'logout']);
+
+//Route::middleware(['auth:sanctum'])->post('auth/login', [AuthController::class, 'login']);
+//Route::post('/auth/logout', [AuthController::class, 'logout']);
 
 Route::get('users',[UserController::class,'index']);
 Route::get('users/{id}',[UserController::class,'show']);

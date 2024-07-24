@@ -112,12 +112,26 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request): \Illuminate\Http\JsonResponse
+    public function logout(): \Illuminate\Http\JsonResponse
     {
-        auth()->user()->tokens()->delete();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Logout Successful!',
-        ], 200);
+        try {
+            if (auth()->check()) {
+                auth()->user()->tokens()->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'User Logged Out Successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'No user is currently logged in',
+                ], 401);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }
