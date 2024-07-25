@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\StyleController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,11 @@ Route::get('business/{id}',[BusinessController::class,'show']);
 Route::post('business',[BusinessController::class,'store']);
 Route::delete('business/{id}',[BusinessController::class,'destroy']);
 Route::put('business/{id}',[BusinessController::class,'update']);
+
+//Styles
+Route::apiResource('style', StyleController::class);
+Route::get('style',[StyleController::class,'index']);
+Route::get('products/style/{id}',[StyleController::class,'__invoke']);
 
 //Categories
 Route::apiResource('category', CategoryController::class);
