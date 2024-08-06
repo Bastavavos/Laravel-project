@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProductFilterController;
 use App\Http\Controllers\Api\StyleController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -49,6 +50,9 @@ Route::post('products',[ProductController::class,'store']);
 Route::delete('products/{id}',[ProductController::class,'destroy']);
 Route::put('products/{id}',[ProductController::class,'update']);
 
+//Filters
+Route::get('products/filter/{categoryId?}/{styleId?}/{materialId?}', [ProductFilterController::class, 'filter']);
+
 //Businesses
 Route::apiResource('business', BusinessController::class);
 Route::get('business',[BusinessController::class,'index']);
@@ -57,24 +61,26 @@ Route::post('business',[BusinessController::class,'store']);
 Route::delete('business/{id}',[BusinessController::class,'destroy']);
 Route::put('business/{id}',[BusinessController::class,'update']);
 
-//Styles
-Route::apiResource('style', StyleController::class);
-Route::get('style',[StyleController::class,'index']);
-Route::get('products/style/{id}',[StyleController::class,'__invoke']);
-
-//Categories
-Route::apiResource('category', CategoryController::class);
-Route::get('category',[CategoryController::class,'index']);
-Route::get('products/category/{id}',[CategoryController::class,'__invoke']);
-
-//Materials
-Route::apiResource('material', MaterialController::class);
-Route::get('material',[MaterialController::class,'index']);
-Route::get('products/material/{id}',[MaterialController::class,'__invoke']);
-
 //Invoices
 Route::get('invoices',[InvoiceController::class,'index']);
 Route::get('invoices/{id}',[InvoiceController::class,'show']);
 Route::post('invoices',[InvoiceController::class,'store']);
 Route::delete('invoices/{id}',[InvoiceController::class,'destroy']);
 Route::put('invoices/{id}',[InvoiceController::class,'update']);
+
+//Styles
+//Route::apiResource('style', StyleController::class);
+//Route::get('style',[StyleController::class,'index']);
+//Route::get('products/style/{id}',[StyleController::class,'__invoke']);
+
+//Categories
+//Route::apiResource('category', CategoryController::class);
+//Route::get('category',[CategoryController::class,'index']);
+//Route::get('products/category/{id}',[CategoryController::class,'__invoke']);
+
+//Materials
+//Route::apiResource('material', MaterialController::class);
+//Route::get('material',[MaterialController::class,'index']);
+//Route::get('products/material/{id}',[MaterialController::class,'__invoke']);
+
+
