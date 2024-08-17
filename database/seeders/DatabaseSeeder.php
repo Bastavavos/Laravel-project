@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             ThemeSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            BusinessSeeder::class,
             ProductSeeder::class,
             StatuSeeder::class,
             InvoiceSeeder::class,

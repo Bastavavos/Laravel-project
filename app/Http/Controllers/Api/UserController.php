@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny', User::class);
+//        $this->authorize('viewAny', User::class);
 
         $users = UserResource::collection(User::all());
 
@@ -67,34 +67,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('view', User::class);
+//        $this->authorize('view', User::class);
 
         $user = UserResource::make(User::find($id));
-        return response()->json([
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @throws AuthorizationException
-     */
-
-    /**
-     * @OA\Put(
-     *     path="/users/{id}",
-     *     summary="Update user",
-     *     tags={"User"},
-     *     @OA\Response(response=200, description="Success"),
-     *     @OA\Response(response=400, description="Invalid request")
-     * )
-     */
-    public function update(StoreUserRequest $request, $id)
-    {
-        $this->authorize('update', User::class);
-
-        $user = User::find($id);
-        $user->update($request->all());
-
         return response()->json([
             'user' => $user
         ]);
@@ -116,37 +91,10 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $this->authorize('delete', User::class);
+//        $this->authorize('delete', User::class);
 
         $user = User::find($id);
         $user->delete();
     }
-
-// switch with function createUser in my AuthController
-
-//    public function store(StoreUserRequest $request)
-//    {
-//        $arrayRequest = $request->all();
-//
-//        $zipCode = ZipCode::firstOrCreate(['value' => $arrayRequest['zip_code']]);
-//        $city = City::firstOrCreate(['name' => $arrayRequest['city']]);
-//
-//        $user = new User();
-//        $user->firstname = $arrayRequest['firstname'];
-//        $user->lastname = $arrayRequest['lastname'];
-//        $user->email = $arrayRequest['email'];
-//        $user->address = $arrayRequest['address'];
-//        $user->password = $arrayRequest['password'];
-//
-//        $user->city()->associate($city);
-//        $user->zipCode()->associate($zipCode);
-//
-//        $user->save();
-//
-//        return response()->json([
-//           'user'=>$user
-//        ]);
-//    }
-
 }
 

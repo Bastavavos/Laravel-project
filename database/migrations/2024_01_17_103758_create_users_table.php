@@ -23,8 +23,10 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreignUuid('role_id');
+            // Modification pour que role_id = référence à id dans roles
+            $table->foreignUuid('role_id')->constrained('roles');
 
+//            $table->foreignUuid('role_id');
             $table->foreignUuid('zip_code_id');
             $table->foreignUuid('city_id');
         });

@@ -36,7 +36,7 @@ class UserPolicy
      * @param User $user
      * @return bool
      */
-    public function create(User $user): bool
+    public function createUser(User $user): bool
     {
         return true;
     }
@@ -44,23 +44,21 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      * @param User $user
-     * @param User $model
      * @return bool
      */
-    public function update(User $user, User $model): bool
+    public function update(User $user): bool
     {
-        return $user->role_id === 'Owner'|| $user->id === $model->id;
+        return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      * @param User $user
-     * @param User $model
      * @return bool
      */
-    public function delete(User $user, User $model): bool
+    public function delete(User $user): bool
     {
-        return $user->role_id === 'Owner'|| $user->id === $model->id;
+        return true;
     }
 
     /**

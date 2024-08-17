@@ -22,7 +22,9 @@ return new class extends Migration
             $table->boolean('active');
             $table->timestamps();
 
-            $table->foreignUuid('business_id');
+            // Ajout de la clé étrangère pour référencer l'utilisateur propriétaire
+            $table->foreignUuid('user_id')->constrained('users');
+
             $table->foreignUuid('category_id');
             $table->foreignUuid('material_id');
             $table->foreignUuid('style_id');

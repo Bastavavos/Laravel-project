@@ -19,8 +19,7 @@ class RoleSeeder extends Seeder
             'name' => 'Owner'
         ]);
 
-        $roles = ['Artisan', 'Customer', 'Visitor'];
-
+        $roles = ['Artisan', 'Customer'];
         foreach ($roles as $role) {
             DB::table('roles')->insert([
                 'id' => uuid_create(),

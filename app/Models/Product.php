@@ -43,13 +43,19 @@ class Product extends Model
         'stock',
         'active',
         'description',
+        'user_id',
         'color_id',
         'material_id',
         'style_id',
         'category_id',
         'size_id',
-        'business_id'
     ];
+
+    public function artisan(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 
     public function color(): BelongsTo
     {

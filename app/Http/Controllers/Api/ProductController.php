@@ -79,9 +79,22 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = ProductResource::collection(Product::all());
+        $products = ProductResource::collection(Product::with([
+            'artisan', 'category', 'color', 'material', 'style', 'size',
+        ])->get());
         return response()->json($products, 200);
     }
+
+// créer la fonction pour récupérer les produits correspondant à un user_id :
+
+
+
+
+//    public function index()
+//    {
+//        $products = ProductResource::collection(Product::all());
+//        return response()->json($products, 200);
+//    }
 
     /**
      * @throws AuthorizationException

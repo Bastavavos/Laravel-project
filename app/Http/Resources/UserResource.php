@@ -24,8 +24,9 @@ class UserResource extends JsonResource
             'lastname'=>$this->lastname,
             'email'=>$this->email,
             'address'=>$this->address,
-            'zipCode'=>$this->zipCode,  // call method zipCode() User Model
-            'city'=>$this->city,        // call method ciy() User Model
+            'role'=>$this->role,
+            'zipCode'=>$this->zipCode,
+            'city'=>$this->city,
         ];
     }
 }
