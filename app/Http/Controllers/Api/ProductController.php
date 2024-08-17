@@ -85,14 +85,37 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
-// créer la fonction pour récupérer les produits correspondant à un user_id :
+    public function productsByUserId($userId)
+    {
+        $user = User::with('role')->find($userId);
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        if ($user->role->name === 'Customer') {
+            return response()->json(['error' => 'This user is not an artisan'], 400);
+        } elseif ($user->role->name === 'Artisan') {
+            $products = ProductResource::collection(
+                Product::where('user_id', $userId)->with([
+                    'artisan', 'category', 'color', 'material', 'style', 'size',
+                ])->get()
+            );
+            if ($products->isEmpty()) {
+                return response()->json(['error' => 'This artisan has no products in stock'], 404);
+            }
+            return response()->json($products, 200);
+        } else {
+            return response()->json(['error' => 'User role not recognized'], 400);
+        }
+    }
 
-
-
-
-//    public function index()
+//    public function productsByUserId($userId)
 //    {
-//        $products = ProductResource::collection(Product::all());
+//        $products = ProductResource::collection(
+//            Product::where('user_id', $userId)->with([
+//                'artisan', 'category', 'color', 'material', 'style', 'size',
+//            ])->get()
+//        );
+//
 //        return response()->json($products, 200);
 //    }
 
@@ -122,13 +145,11 @@ class ProductController extends Controller
         }
 
         $size = Size::create($request->input('size'));
-        $business = Business::find($request->input('business'));
 
         $product->style()->associate($style);
         $product->category()->associate($category);
         $product->color()->associate($color);
         $product->material()->associate($material);
-        $product->business()->associate($business);
         $product->size()->associate($size);
 
         $product->save();

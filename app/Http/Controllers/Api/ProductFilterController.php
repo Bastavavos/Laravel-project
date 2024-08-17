@@ -42,30 +42,50 @@ class ProductFilterController extends Controller
                 });
             }
         }
-
         $products = $query->get();
         return response()->json($products, 200);
     }
-
-    //    public function filter($categoryId, $styleId, $materialId): JsonResponse
-//    {
-//        $category = Category::find($categoryId);
-//        $style = Style::find($styleId);
-//        $material = Material::find($materialId);
-//
-//        if (!$category || !$style || !$material) {
-//            return response()->json(['error' => 'Category, style or material not found'], 404);
-//        }
-//
-//        $products = Product::where('category_id', $category->id)
-//            ->whereHas('style', function ($query) use ($styleId) {
-//                $query->where('style_id', $styleId);
-//            })
-//            ->whereHas('material', function ($query) use ($materialId) {
-//                $query->where('material_id', $materialId);
-//            })
-//            ->get();
-//
-//        return response()->json($products, 200);
-//    }
 }
+
+//public function filter(Request $request): JsonResponse
+//    {
+//        $categoryId = $request->query('categoryId');
+//        $styleId = $request->query('styleId');
+//        $materialId = $request->query('materialId');
+//
+//        $query = Product::query();
+//
+//        if ($categoryId) {
+//            $category = Category::find($categoryId);
+//            if ($category) {
+//                $query->where('category_id', $category->id);
+//            }
+//        }
+//        if ($styleId) {
+//            $style = Style::find($styleId);
+//            if ($style) {
+//                $query->whereHas('style', function ($query) use ($styleId) {
+//                    $query->where('style_id', $styleId);
+//                });
+//            }
+//        }
+//        if ($materialId) {
+//            $material = Material::find($materialId);
+//            if ($material) {
+//                $query->whereHas('material', function ($query) use ($materialId) {
+//                    $query->where('material_id', $materialId);
+//                });
+//            }
+//        }
+//        $products = $query->get();
+//
+//        $productsResource = ProductResource::collection($products);
+//
+//        return response()->json([
+//            'products' => $productsResource,
+//            'category' => $categoryId ? new CategoryResource($category) : null,
+//            'style' => $styleId ? new StyleResource($style) : null,
+//            'material' => $materialId ? new MaterialResource($material) : null,
+//        ], 200);
+//    }
+

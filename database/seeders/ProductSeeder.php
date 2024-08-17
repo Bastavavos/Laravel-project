@@ -20,25 +20,17 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Récupérer les utilisateurs Artisans
         $artisanUsers = User::whereHas('role', function ($query) {
             $query->where('name', 'Artisan');
         })->get();
 
         foreach ($artisanUsers as $user) {
-            // Créer un produit pour chaque utilisateur Artisan
             Product::factory()
                 ->count(120)
                 ->for(Size::factory()->create())
                 ->create([
-                'user_id' => $user->id, // Assurez-vous que votre modèle Product a une clé étrangère 'user_id'
+                'user_id' => $user->id,
             ]);
         }
-
-
-//        Product::factory()
-//            ->count(120)
-//            ->for(Size::factory()->create())
-//            ->create();
     }
 }
