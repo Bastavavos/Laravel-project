@@ -5,16 +5,11 @@ use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\ProductController;
-
 use App\Http\Controllers\Api\ProductFilterController;
-
 use App\Http\Controllers\Api\RoleController;
-
 use App\Http\Controllers\Api\StyleController;
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,8 +20,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-
 //Users
 Route::group(['middleware'=>'auth:sanctum'], function () {
 Route::apiResource('user', UserController::class);
@@ -41,6 +34,9 @@ Route::get('users',[UserController::class,'index']);
 Route::get('users/{id}',[UserController::class,'show']);
 Route::put('users/{id}', [AuthController::class, 'updateUser']);
 Route::delete('users/{id}',[UserController::class,'destroy']);
+
+Route::get('artisans',[UserController::class,'indexArtisan']);
+Route::get('artisans/{id}',[UserController::class,'showArtisan']);
 
 //Location
 Route::get('/zip-codes', [LocationController::class, 'getZipCodes']);
@@ -72,20 +68,21 @@ Route::post('invoices',[InvoiceController::class,'store']);
 Route::delete('invoices/{id}',[InvoiceController::class,'destroy']);
 Route::put('invoices/{id}',[InvoiceController::class,'update']);
 
-//old filters routes
 //Styles
 Route::apiResource('style', StyleController::class);
 Route::get('style',[StyleController::class,'index']);
-//Route::get('products/style/{id}',[StyleController::class,'__invoke']);
 
 //Categories
 Route::apiResource('category', CategoryController::class);
 Route::get('category',[CategoryController::class,'index']);
-//Route::get('products/category/{id}',[CategoryController::class,'__invoke']);
 
 //Materials
 Route::apiResource('material', MaterialController::class);
 Route::get('material',[MaterialController::class,'index']);
+
+//old filters routes
+//Route::get('products/style/{id}',[StyleController::class,'__invoke']);
+//Route::get('products/category/{id}',[CategoryController::class,'__invoke']);
 //Route::get('products/material/{id}',[MaterialController::class,'__invoke']);
 
 

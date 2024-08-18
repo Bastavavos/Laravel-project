@@ -45,6 +45,27 @@ class UserController extends Controller
         ]);
     }
 
+    public function indexArtisan()
+    {
+        $users = UserResource::collection(User::whereHas('role', function ($query) {
+            $query->where('name', 'Artisan');
+        })->get());
+        return response()->json($users, 200);
+    }
+    public function showArtisan($id)
+    {
+        $user = User::find($id);
+        if ($user && $user->role->name === 'Artisan') {
+            $userResource = UserResource::make($user);
+            return response()->json([
+                'user' => $userResource
+            ]);
+        }
+        return response()->json([
+            'message' => 'Artisan not found'
+        ], 404);
+    }
+
     /**
      * @throws AuthorizationException
      */
