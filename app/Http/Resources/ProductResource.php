@@ -22,12 +22,12 @@ class ProductResource extends JsonResource
             'stock'=>$this->stock,
             'active'=>$this->active,
             'description'=>$this->description,
+            'artisan'=>$this->artisan->firstname.' '.$this->artisan->lastname,
             'category'=> $this->category->name,
             'color'=>$this->color->name,
             'material'=>$this->material->name,
             'style'=>$this->style->name,
             'size'=>$this->size,
-            'business'=>$this->business->name,
         ];
     }
 }

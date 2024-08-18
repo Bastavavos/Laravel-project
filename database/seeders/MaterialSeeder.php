@@ -13,8 +13,7 @@ class MaterialSeeder extends Seeder
      */
     public function run(): void
     {
-        $materials = ['Wood', 'Iron', 'Silver', 'Gold', 'Diamond', 'Textile', 'Silk', 'Ceramic', 'Rubber', 'Clay',
-            'Emerald', '100% Natural', 'Plastic-free', 'Allergen-free'];
+        $materials = ['Wood', 'Silver', 'Gold', '100% Natural', 'Allergen-free'];
 
         foreach ($materials as $material) {
             DB::table('materials')->insert([

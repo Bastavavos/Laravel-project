@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Material;
 use App\Models\Style;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,15 +22,18 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $artisanUser = User::whereHas('role', function ($query) {
+            $query->where('name','Artisan');
+        })->exists();
+
         $style = Style::all()->random(1)->value('id');
         $material = Material::all()->random(1)->value('id');
         $color = Color::all()->random(2)->value('id');
         $category = Category::all()->random(1)->value('id');
-        $biz = Business::all()->random(1)->value('id');
 
         return [
             'name'=>fake()->word,
-            'business_id'=>$biz,
+            'user_id'=>$artisanUser,
             'category_id'=>$category,
             'color_id'=>$color,
             'material_id'=>$material,

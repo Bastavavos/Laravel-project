@@ -60,6 +60,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
     public function zipCode(): BelongsTo
     {
         return $this->belongsTo(ZipCode::class);
