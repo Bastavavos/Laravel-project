@@ -74,7 +74,8 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => uuid_create(), // Assurez-vous que cette fonction existe et renvoie un UUID valide
             'firstname' => 'Bastos',
-            'lastname' => 'superAdmin',
+            'lastname' => 'Administrator',
+            'image' => null,
             'email' => 'bastien.pelletier74@gmail.com',
             'email_verified_at' => null,
             'password' => static::$password ??= Hash::make('password'),

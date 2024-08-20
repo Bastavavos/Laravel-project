@@ -29,7 +29,6 @@ class StoreProductRequest extends FormRequest
 
             'style' => 'required|string',
             'category' => 'required|string',
-            'business' => 'required|string',
 
             'material' => 'string',
             'color' => 'string',

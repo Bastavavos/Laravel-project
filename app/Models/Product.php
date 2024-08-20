@@ -82,8 +82,4 @@ class Product extends Model
         return $this->belongsTo(Size::class);
     }
 
-    public function business(): BelongsTo
-    {
-        return $this->belongsTo(Business::class);
-    }
 }
