@@ -25,20 +25,15 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'string|required|max:255',
             'description' => 'string|required|max:255',
-            'price' => 'required',
+            'price' => 'string',
 
             'style' => 'required|string',
             'category' => 'required|string',
-
+            'size' => 'required|string',
             'material' => 'string',
             'color' => 'string',
-            'stock' => 'int|required',
+            'stock' => 'string',
             'image' => 'string',
-
-            'size.height' => 'required',
-            'size.width' => 'required',
-            'size.depth' => 'required',
-            'size.capacity' => 'required',
         ];
     }
 }

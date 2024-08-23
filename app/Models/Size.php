@@ -17,10 +17,7 @@ class Size extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'height',
-        'width',
-        'depth',
-        'capacity'
+        'name'
     ];
 
     public function product(): HasMany

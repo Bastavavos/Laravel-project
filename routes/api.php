@@ -1,12 +1,14 @@
 <?php
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ColorController;
 use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductFilterController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\SizeController;
 use App\Http\Controllers\Api\StyleController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,8 +34,9 @@ Route::middleware(['auth:sanctum'])->post('auth/logout', [AuthController::class,
 
 Route::get('users',[UserController::class,'index']);
 Route::get('users/{id}',[UserController::class,'show']);
-Route::put('users/{id}', [AuthController::class, 'updateUser']);
 Route::delete('users/{id}',[UserController::class,'destroy']);
+
+Route::put('users/{id}', [AuthController::class, 'updateUser']);
 
 Route::get('artisans',[UserController::class,'indexArtisan']);
 Route::get('artisans/{id}',[UserController::class,'showArtisan']);
@@ -51,15 +54,22 @@ Route::apiResource('product', ProductController::class);
 Route::get('products',[ProductController::class,'index']);
 Route::get('products/{id}',[ProductController::class,'show']);
 
+//Artisan or Owner only
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('products', [ProductController::class, 'store']);
+});
+//Route::post('products', [ProductController::class, 'store']);
+
+//Route::post('products',[ProductController::class,'store']);
+Route::delete('products/{id}',[ProductController::class,'destroy']);
+Route::put('products/{id}',[ProductController::class,'update']);
+
 //Filters
 //Route::get('products/filter', [ProductFilterController::class, 'filter']);
 Route::get('products/filter/{categoryId?}/{styleId?}/{materialId?}', [ProductFilterController::class, 'filter']);
 Route::get('products/user/{userId}', [ProductController::class, 'productsByUserId']);
 
-//Artisan or Owner only
-Route::post('products',[ProductController::class,'store']);
-Route::delete('products/{id}',[ProductController::class,'destroy']);
-Route::put('products/{id}',[ProductController::class,'update']);
+
 
 //Invoices
 Route::get('invoices',[InvoiceController::class,'index']);
@@ -70,15 +80,23 @@ Route::put('invoices/{id}',[InvoiceController::class,'update']);
 
 //Styles
 Route::apiResource('style', StyleController::class);
-Route::get('style',[StyleController::class,'index']);
+Route::get('styles',[StyleController::class,'index']);
 
 //Categories
 Route::apiResource('category', CategoryController::class);
-Route::get('category',[CategoryController::class,'index']);
+Route::get('categories',[CategoryController::class,'index']);
 
 //Materials
 Route::apiResource('material', MaterialController::class);
-Route::get('material',[MaterialController::class,'index']);
+Route::get('materials',[MaterialController::class,'index']);
+
+//Colors
+Route::apiResource('color', ColorController::class);
+Route::get('colors',[ColorController::class,'index']);
+
+//Sizes
+Route::apiResource('size', SizeController::class);
+Route::get('sizes',[SizeController::class,'index']);
 
 //old filters routes
 //Route::get('products/style/{id}',[StyleController::class,'__invoke']);

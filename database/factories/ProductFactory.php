@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Material;
+use App\Models\Size;
 use App\Models\Style;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -25,6 +26,7 @@ class ProductFactory extends Factory
             $query->where('name','Artisan');
         })->exists();
 
+        $size = Size::all()->random(2)->value('id');
         $style = Style::all()->random(1)->value('id');
         $material = Material::all()->random(1)->value('id');
         $color = Color::all()->random(2)->value('id');
@@ -37,6 +39,7 @@ class ProductFactory extends Factory
             'color_id'=>$color,
             'material_id'=>$material,
             'style_id'=>$style,
+            'size_id'=>$size,
             'description'=>fake()->text(30),
             'price'=>fake()->randomFloat(2,5,600),
             'stock'=>fake()->numberBetween(0,100),

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ZipCode extends Model
 {
     use HasFactory, HasUuids;
+
     public $timestamps = false;
 
     /**
@@ -31,8 +32,4 @@ class ZipCode extends Model
         return $this->hasMany(User::class);
     }
 
-    public function business(): HasMany
-    {
-        return $this->hasMany(Business::class);
-    }
 }

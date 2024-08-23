@@ -31,9 +31,4 @@ class City extends Model
     {
         return $this->hasMany(User::class);
     }
-
-    public function business(): HasMany
-    {
-        return $this->hasMany(Business::class);
-    }
 }

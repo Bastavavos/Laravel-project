@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
-use App\Models\Business;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Material;
@@ -18,6 +17,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 
+use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
 
 class ProductController extends Controller
@@ -108,43 +108,46 @@ class ProductController extends Controller
         }
     }
 
-//    public function productsByUserId($userId)
-//    {
-//        $products = ProductResource::collection(
-//            Product::where('user_id', $userId)->with([
-//                'artisan', 'category', 'color', 'material', 'style', 'size',
-//            ])->get()
-//        );
-//
-//        return response()->json($products, 200);
-//    }
-
     /**
      * @throws AuthorizationException
      */
     public function store(StoreProductRequest $request)
     {
-        $this->authorize('create', Product::class);
+//        $this->authorize('create', Product::class);
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $category = Category::firstWhere('name', $request->input('category'));
+        $categoryId = $category->id;
+
+        $style = Style::firstWhere('name', $request->input('style'));
+        $styleId = $style->id;
+
+        $color = Color::firstWhere('name', $request->input('color'));
+        $colorId = $color->id;
+
+        $material = Material::firstWhere('name', $request->input('material'));
+        $materialId = $material->id;
+
+        $size = Size::firstWhere('name', $request->input('size'));
+        $sizeId = $size->id;
 
         $product = Product::create([
-            'description' => $request->input('description'),
             'name' => $request->input('name'),
+            'description' => $request->input('description'),
             'image' => $request->input('image'),
             'price' => $request->input('price'),
             'stock' => $request->input('stock'),
-            'active' => $request->input('active'),
+//            'active' => $request->input('active'),
+            'active' => $request->input('active') ? 1 : 0,
+            'user_id'=> Auth::id(),
+            'category_id' => $categoryId,
+            'material_id' => $materialId,
+            'color_id'=> $colorId,
+            'style_id'=> $styleId,
+            'size_id'=> $sizeId
         ]);
-
-        $category = Category::firstWhere('name', $request->input('category'));
-        $color = Color::firstWhere('name', $request->input('color'));
-        $material = Material::firstWhere('name', $request->input('material'));
-        $style = Style::firstWhere('name', $request->input('style'));
-
-        if (!$category || !$color || !$material || !$style) {
-            return response()->json(['error' => 'One or more required attributes do not exist'], 404);
-        }
-
-        $size = Size::create($request->input('size'));
 
         $product->style()->associate($style);
         $product->category()->associate($category);
@@ -152,6 +155,7 @@ class ProductController extends Controller
         $product->material()->associate($material);
         $product->size()->associate($size);
 
+        $product->artisan()->associate(Auth::id());
         $product->save();
 
         $productResource = ProductResource::make($product);
@@ -192,7 +196,7 @@ class ProductController extends Controller
      */
     public function update(StoreProductRequest $request, $id)
     {
-        $this->authorize('update', Product::class);
+//        $this->authorize('update', Product::class);
 
         $product = Product::find($id);
         $product->update($request->all());
@@ -217,7 +221,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', Product::class);
+//        $this->authorize('delete', Product::class);
         $product = Product::find($id);
         $product->delete();
     }

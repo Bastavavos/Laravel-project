@@ -27,7 +27,6 @@ class ProductSeeder extends Seeder
         foreach ($artisanUsers as $user) {
             Product::factory()
                 ->count(120)
-                ->for(Size::factory()->create())
                 ->create([
                 'user_id' => $user->id,
             ]);

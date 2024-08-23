@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\City;
 use App\Models\Role;
 use App\Models\User;
@@ -140,45 +142,16 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
     public function updateUser(Request $request, $id): \Illuminate\Http\JsonResponse
     {
-        try {
-            $validatedData = Validator::make($request->all(), [
-                'firstname' => 'sometimes|required',
-                'lastname' => 'sometimes|required',
-                'email' => 'sometimes|required|email|unique:users,email,' . $id,
-                'password' => 'sometimes|required',
-                'address' => 'sometimes|required',
-                'role_name' => 'sometimes|required|exists:roles,name',
-                'zip_code_value' => 'sometimes|required|exists:zip_codes,value',
-                'city_name' => 'sometimes|required|exists:cities,name',
-            ])->validate();
+//        $this->authorize('update', Product::class);
 
-            $user = User::findOrFail($id);
+        $user = User::find($id);
+        $user->update($request->all());
 
-            $user->update([
-                'firstname' => $request->get('firstname', $user->firstname),
-                'lastname' => $request->get('lastname', $user->lastname),
-                'email' => $request->get('email', $user->email),
-                'password' => bcrypt($request->get('password', $user->password)),
-                'address' => $request->get('address', $user->address),
-                'role_id' => $request->get('role_name', $user->role_id),
-                'zip_code_id' => $request->get('zip_code_value', $user->zip_code_id),
-                'city_id' => $request->get('city_name', $user->city_id),
-            ]);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'User Updated Successfully',
-                'user' => $user
-            ], 200);
-
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'user' => $user
+        ]);
     }
-
 }

@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->float('height');
-            $table->float('width');
-            $table->float('depth');
-            $table->float('capacity');
+            $table->string('name');
         });
     }
 
