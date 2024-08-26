@@ -35,7 +35,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory, HasUuids, Filterable, Sortable;
-
     protected $fillable = [
         'name',
         'image',
@@ -50,33 +49,26 @@ class Product extends Model
         'category_id',
         'size_id',
     ];
-
     public function artisan(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-
     public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class);
     }
-
     public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class);
     }
-
     public function style(): BelongsTo
     {
             return $this->belongsTo(Style::class);
     }
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
-
     public function size(): BelongsTo
     {
         return $this->belongsTo(Size::class);

@@ -43,7 +43,7 @@ class ProductFactory extends Factory
             'description'=>fake()->text(30),
             'price'=>fake()->randomFloat(2,5,600),
             'stock'=>fake()->numberBetween(0,100),
-            'image'=>$this->faker->imageUrl(), //new images
+            'image'=>$this->faker->imageUrl(640,480, false, true, false, false,'webp'), //new images
 //            'image'=>fake()->imageUrl(50,50),
             'active'=>fake()->boolean,
         ];

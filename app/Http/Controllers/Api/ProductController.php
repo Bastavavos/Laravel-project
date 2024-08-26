@@ -20,6 +20,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Annotations as OA;
 
+
+
+
+//        $products = ProductResource::collection(Product::all());
+//        return response()->json([
+//            'products' => $products,
+//        ]);
 class ProductController extends Controller
 {
     /**
@@ -27,7 +34,6 @@ class ProductController extends Controller
      *     path="/products",
      *     summary="Get all products",
      *     tags={"Product"},
-     *
      *     @OA\Parameter(
      *     name="color",
      *     in="query",
@@ -63,20 +69,11 @@ class ProductController extends Controller
      *      required=false,
      *      @OA\Schema(type="string")
      *      ),
-     *       @OA\Parameter(
-     *       name="business",
-     *       in="query",
-     *       description="Add business filter",
-     *       required=false,
-     *       @OA\Schema(type="string")
-     *       ),
-     *
      *    @OA\Response(response=200, description="Success"),
      *    @OA\Response(response=400, description="Invalid request"),
      *    @OA\Response(response=404, description="Product not found")
      * )
      */
-
     public function index()
     {
         $products = ProductResource::collection(Product::with([
@@ -85,6 +82,22 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/products/{id}",
+     *     summary="Get one product",
+     *     tags={"Product"},
+     *     @OA\Response(response=200, description="Success"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function show($id)
+    {
+        $product = ProductResource::make(Product::find($id));
+        return response()->json([
+            'product' => $product,
+        ]);
+    }
     public function productsByUserId($userId)
     {
         $user = User::with('role')->find($userId);
@@ -164,22 +177,7 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * @OA\Get(
-     *     path="/products/{id}",
-     *     summary="Get one product",
-     *     tags={"Product"},
-     *     @OA\Response(response=200, description="Success"),
-     *     @OA\Response(response=400, description="Invalid request")
-     * )
-     */
-    public function show($id)
-    {
-        $product = ProductResource::make(Product::find($id));
-        return response()->json([
-            'product' => $product,
-        ]);
-    }
+
 
     /**
      * @throws AuthorizationException

@@ -60,7 +60,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 //Route::post('products', [ProductController::class, 'store']);
 
-//Route::post('products',[ProductController::class,'store']);
 Route::delete('products/{id}',[ProductController::class,'destroy']);
 Route::put('products/{id}',[ProductController::class,'update']);
 
@@ -68,8 +67,6 @@ Route::put('products/{id}',[ProductController::class,'update']);
 //Route::get('products/filter', [ProductFilterController::class, 'filter']);
 Route::get('products/filter/{categoryId?}/{styleId?}/{materialId?}', [ProductFilterController::class, 'filter']);
 Route::get('products/user/{userId}', [ProductController::class, 'productsByUserId']);
-
-
 
 //Invoices
 Route::get('invoices',[InvoiceController::class,'index']);

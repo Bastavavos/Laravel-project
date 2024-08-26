@@ -42,6 +42,11 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY . /var/www
 
+# Two next commands are needed to run composer install in my personal config
+# Adjust permissions & switch to www-data user
+RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
+USER www-data
+
 # Install project dependencies
 RUN composer install
 
