@@ -18,18 +18,6 @@ Development of an API for e-commerce website designed to present and sell craft 
 
 <br/>
 
-**Specifics :**
-- PHP Framework Laravel(v.10)
-- Space dedicated to artists/craftspeople to present their profiles and creations
-- Artisans can manage their own accounts and update their creations
-- Advanced search functions, such as searching by material, category or style
-- Intuitive shopping cart with customisation options for products
-
-- Respect safety criteria
-- Minimise carbon impact
-
-<br/>
-
 **Initialisation :** 
 
 Project creation :
